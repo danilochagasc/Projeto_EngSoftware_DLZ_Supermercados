@@ -20,3 +20,8 @@
 - React
 - Spring Boot
 - MySQL
+
+## Autores
+- Lara Linhares
+- Danilo Chagas
+- José Airton
