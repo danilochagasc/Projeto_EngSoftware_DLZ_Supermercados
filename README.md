@@ -21,9 +21,9 @@
 <p> Confere os produtos selecionados e é processado o pagamento.</p>
 
 ## Tecnologias
-- React
-- Spring Boot
-- MySQL
+- React (JavaScript)
+- Spring Boot (Java)
+- MySQL (SQL)
 
 ## Autores
 - Danilo Chagas
