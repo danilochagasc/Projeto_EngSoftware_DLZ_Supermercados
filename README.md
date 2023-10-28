@@ -23,7 +23,7 @@
 ## Tecnologias
 - React (JavaScript)
 - Spring Boot (Java)
-- MySQL (SQL)
+- PostGreSQL (SQL)
 
 ## Autores
 - Danilo Chagas
