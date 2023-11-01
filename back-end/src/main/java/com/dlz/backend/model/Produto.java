@@ -16,7 +16,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true)
     @Setter(AccessLevel.NONE)
-    private UUID idCliente;
+    private UUID idProduto;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private  String nome;
@@ -29,17 +29,4 @@ public class Produto {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private String imagem;
-
-    @ManyToOne()
-    @JoinColumn(name = "idDepartamento", nullable = false)
-    private Departamento departamento;
-
-    @Builder
-    public Produto(String nome, int quantidade, int preco_em_centavos, String imagem, Departamento departamento) {
-        this.nome = nome;
-        this.quantidade = quantidade;
-        this.preco_em_centavos = preco_em_centavos;
-        this.imagem = imagem;
-        this.departamento = departamento;
-    }
 }

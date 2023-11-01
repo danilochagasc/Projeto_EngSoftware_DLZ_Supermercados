@@ -29,13 +29,4 @@ public class Cliente {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private String endereco;
-
-    @Builder
-    public Cliente(String nome, String telefone, String email, String endereco) {
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
-        this.endereco = endereco;
-    }
-
 }

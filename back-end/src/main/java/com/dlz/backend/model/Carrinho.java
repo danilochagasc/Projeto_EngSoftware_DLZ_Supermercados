@@ -1,23 +1,24 @@
 package com.dlz.backend.model;
 
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "Departamento")
+@Table(name = "Carrinho")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Departamento {
+public class Carrinho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true)
     @Setter(AccessLevel.NONE)
-    private UUID idDepartamento;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(45)")
-    private String nome;
+    private UUID idCarrinho;
 }
