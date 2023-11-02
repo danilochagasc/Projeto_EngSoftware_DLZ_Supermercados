@@ -20,4 +20,9 @@ public class Departamento {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private String nome;
+
+    @Builder
+    public Departamento(String nome) {
+        this.nome = nome;
+    }
 }
