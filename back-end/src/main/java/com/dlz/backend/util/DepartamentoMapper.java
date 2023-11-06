@@ -1,7 +1,7 @@
 package com.dlz.backend.util;
 
-import com.dlz.backend.dto.request.DepartamentoRequestDTO;
 import com.dlz.backend.dto.response.DepartamentoResponseDTO;
+import com.dlz.backend.dto.request.DepartamentoRequestDTO;
 import com.dlz.backend.model.Departamento;
 import org.springframework.stereotype.Component;
 
