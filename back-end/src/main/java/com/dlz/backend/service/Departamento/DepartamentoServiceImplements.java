@@ -1,4 +1,4 @@
 package com.dlz.backend.service.Departamento;
 
-public class DepartamentoServiceImplements {
+public class DepartamentoServiceImplements implements DepartamentoService{
 }
