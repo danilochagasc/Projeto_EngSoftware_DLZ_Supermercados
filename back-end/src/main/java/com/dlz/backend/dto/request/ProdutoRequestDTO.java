@@ -2,15 +2,13 @@ package com.dlz.backend.dto.request;
 
 import com.dlz.backend.model.Carrinho;
 import com.dlz.backend.model.Departamento;
+import com.dlz.backend.model.Produto;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 public class ProdutoRequestDTO {
-
-    private UUID idProduto;
 
     private  String nome;
 
@@ -23,4 +21,5 @@ public class ProdutoRequestDTO {
     private Departamento departamento;
 
     private List<Carrinho> carrinhos;
+
 }
