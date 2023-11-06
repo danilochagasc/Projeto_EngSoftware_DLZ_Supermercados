@@ -6,9 +6,12 @@ import com.dlz.backend.model.Produto;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class ProdutoResponseDTO {
+
+    private UUID idProduto;
 
     private  String nome;
 
@@ -23,6 +26,7 @@ public class ProdutoResponseDTO {
     private List<Carrinho> carrinhos;
 
     public ProdutoResponseDTO(Produto produto){
+        this.idProduto = produto.getIdProduto();
         this.nome = produto.getNome();
         this.quantidade = produto.getQuantidade();
         this.preco_em_centavos = produto.getPreco_em_centavos();
