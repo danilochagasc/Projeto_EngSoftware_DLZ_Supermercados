@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, UUID>{
-
     @Query("SELECT p FROM Produto p WHERE p.departamento.nome = ?1")
     List<Produto> procurarPorDepartamento(String nomeDepartamento);
 }
