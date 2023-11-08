@@ -1,0 +1,92 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: 'Poppins', sans-serif;
+
+  height: 100vh;
+
+  /* background: linear-gradient(102deg, #3A62C8 50%, #FFF 50%);
+  background-size: 100% 100%; */
+}
+
+.background {
+  z-index: -10;
+  position: fixed;
+  width: 55vw;
+  height: 100%;
+  background-color: #3A62C8;
+  transform: skewX(-14deg);
+  transform-origin: 0 0;
+}
+
+.left-aside {
+  padding: 0 0 0 10vw;
+}
+
+.logo {
+  height: 40vh;
+}
+
+.right-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 10vw 0 0;
+
+  box-sizing: border-box;
+}
+
+.title {
+  margin: .3em 0;
+}
+
+.line-title {
+  border-top: 3px solid #3A62C8;
+  width: 4em;
+  margin: 0 0 5vh 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-password {
+  text-decoration: none;
+  font-style: italic;
+  margin: 0 0 7vh 1em;
+  color: #3A62C8;
+}
+
+.or {
+  display: flex;
+  align-items: center;
+  margin: 5vh 0 0;
+}
+
+.or p {
+  margin: 0 1em;
+}
+
+.line-or {
+  border-top: 3px solid #3A62C8;
+  width: 7em;
+}
+
+.logins {
+  display: flex;
+  margin: 3vh 0;
+}
+
+.login-image {
+  height: 50px;
+  margin: 0 2.5em 0;
+}
+
+.signin-link {
+  text-decoration: none;
+  color: #3A62C8;
+}
