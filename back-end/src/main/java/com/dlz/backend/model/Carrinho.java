@@ -1,6 +1,7 @@
 package com.dlz.backend.model;
 
 
+import com.dlz.backend.model.Cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 

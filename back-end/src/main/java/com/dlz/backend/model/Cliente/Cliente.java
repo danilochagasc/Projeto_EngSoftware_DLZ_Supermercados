@@ -1,5 +1,6 @@
-package com.dlz.backend.model;
+package com.dlz.backend.model.Cliente;
 
+import com.dlz.backend.model.Carrinho;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,25 +22,34 @@ public class Cliente {
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private String nome;
 
+    @Column(nullable = false, columnDefinition = "VARCHAR(45)")
+    private String email;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    private String senha;
+
     @Column(nullable = false, columnDefinition = "CHAR(11)")
     private String telefone;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(45)")
-    private String email;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(45)")
     private String endereco;
+
+    @Column(nullable = false)
+    private ClientePermissao permissao;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idCarrinho", referencedColumnName = "idCarrinho")
     private Carrinho carrinho;
 
     @Builder
-    public Cliente(String nome, String telefone, String email, String endereco, Carrinho carrinho) {
+    public Cliente(String nome, String email, String senha, String telefone, String endereco, ClientePermissao permissao, Carrinho carrinho) {
         this.nome = nome;
-        this.telefone = telefone;
         this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
         this.endereco = endereco;
+        this.permissao = permissao;
         this.carrinho = carrinho;
     }
+
 }
