@@ -6,10 +6,10 @@
 ## Funcionalidades
 
 ### Cadastrar
-<p> Os usuários podem criar uma conta que contenha informações como nome, endereço, cidade e CEP.</p>
+<p> Os usuários podem criar uma conta que contenha informações como nome, e-mail, endereço, telefone e senha.</p>
 
 ### Login
-<p> Os usuários devem possuir uma conta que contenha informações como nome, endereço, cidade e CEP para que possam acessar todas as funcionalidades do site.</p>
+<p> Os usuários devem possuir uma conta que contenha informações como nome, e-mail, endereço, telefone e senha para que possam acessar todas as funcionalidades do site.</p>
 
 ### Catálogo de produtos
 <p> Os produtos são apresentados separados por categorias.</p>
