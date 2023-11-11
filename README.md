@@ -25,6 +25,18 @@
 - Spring Boot (Java) --versão 3.1.5
 - PostgreSQL (SQL) --versão 15.4
 
+## Estrutura de Diretórios
+<a name="estrutura-diretorio"></a>
+
+```sh
+.
+|-- api/
+|   |-- demais diretórios
+|
+|-- web/
+    |-- demais diretórios
+```
+
 ## Autores
 - Danilo Chagas
 - José Airton
