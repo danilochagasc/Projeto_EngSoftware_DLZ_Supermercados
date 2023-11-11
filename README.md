@@ -30,11 +30,33 @@
 
 ```sh
 .
-|-- api/
+|-- documentacao/
 |   |-- demais diretórios
 |
-|-- web/
-    |-- demais diretórios
+|-- back-end/
+    |-- scr/
+        |-- main/
+            |-- java/com/dlz/backend/
+                |-- controller/* (Pasta dos controllers da aplicação)
+                |-- dto/* (Pasta dos dto's - Data Transfer Object - da aplicação)
+                |-- model/
+                |-- repository/
+                |-- service/
+                |-- util/* (Pasta com classes auxiliares de cada model)
+                |-- BackEndApplication.java (Arquivo principal)
+             |-- resouces/
+                 |-- application.properties (Arquivo de configurações referentes ao banco de dados)
+|
+|-- front-end/
+    |-- src/
+        |-- assets/* (Imagens utilizadas na aplicação)
+        |-- components/* (Componentes utilizados para a aplicação)
+        |-- pages/* (Páginas da aplicação)
+        |-- styles/
+    |-- public/
+|
+|-- padroes-adotados/* (Documento referente as regras de verificação e análise de requisitos)
+|-- documentacao/* (Documento que contém todas as especificações do Software)
 ```
 
 ## Autores
