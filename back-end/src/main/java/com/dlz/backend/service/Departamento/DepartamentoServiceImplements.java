@@ -70,7 +70,8 @@ public class DepartamentoServiceImplements implements DepartamentoService{
     }
 
     //funcoes auxiliares
-    private Departamento retornarDepartamento(UUID id){
+    @Override
+    public Departamento retornarDepartamento(UUID id){
         return departamentoRepository.findById(id).orElseThrow(()-> new RuntimeException("Departamento não encontrado"));
     }
 }
