@@ -51,5 +51,4 @@ public class Cliente {
         this.permissao = permissao;
         this.carrinho = carrinho;
     }
-
 }
