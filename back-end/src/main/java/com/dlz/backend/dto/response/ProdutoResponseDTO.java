@@ -21,9 +21,8 @@ public class ProdutoResponseDTO {
 
     private String imagem;
 
-    private Departamento departamento;
+    private UUID idDepartamento;
 
-    private List<Carrinho> carrinhos;
 
     public ProdutoResponseDTO(Produto produto){
         this.idProduto = produto.getIdProduto();
@@ -31,7 +30,6 @@ public class ProdutoResponseDTO {
         this.quantidade = produto.getQuantidade();
         this.preco_em_centavos = produto.getPreco_em_centavos();
         this.imagem = produto.getImagem();
-        this.departamento = produto.getDepartamento();
-        this.carrinhos = produto.getCarrinhos();
+        this.idDepartamento = produto.getDepartamento().getIdDepartamento();
     }
 }
