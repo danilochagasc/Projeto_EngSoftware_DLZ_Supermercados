@@ -2,8 +2,7 @@ package com.dlz.backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -23,16 +22,16 @@ public class Compra {
     private int valorTotal;
 
     @Column(nullable = false)
-    private Date dataCompra;
+    private LocalDate dataCompra;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idCarrinho", referencedColumnName = "idCarrinho")
     private Carrinho carrinho;
 
     @Builder
-    public Compra(int valorTotal, Date dataCompra, Carrinho carrinho) {
+    public Compra(int valorTotal, LocalDate dataCompra, Carrinho carrinho) {
         this.valorTotal = valorTotal;
-        this.dataCompra = dataCompra;
+        this.dataCompra = dataCompra != null ? dataCompra : LocalDate.now();
         this.carrinho = carrinho;
     }
 }

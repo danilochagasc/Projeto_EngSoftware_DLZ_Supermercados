@@ -5,6 +5,7 @@ import com.dlz.backend.dto.response.ProdutoResponseDTO;
 import com.dlz.backend.model.Produto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class ProdutoMapper {
     }
 
     //transforma uma lista de Produto(entidade) em uma lista de ProdutoResponseDTO
-    public List<ProdutoResponseDTO> toProdutoListDTO(List<Produto> produtos){
+    public static List<ProdutoResponseDTO> toProdutoListDTO(List<Produto> produtos){
         return produtos.stream().map(ProdutoResponseDTO::new).collect(Collectors.toList());
     }
 

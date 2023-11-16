@@ -1,6 +1,8 @@
 package com.dlz.backend.model;
 
 
+import com.dlz.backend.model.Cliente.Cliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

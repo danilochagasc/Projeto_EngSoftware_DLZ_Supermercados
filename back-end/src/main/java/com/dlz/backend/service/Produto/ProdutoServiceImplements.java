@@ -73,7 +73,8 @@ public class ProdutoServiceImplements implements ProdutoService{
     }
 
     //funcoes auxiliares
-    private Produto retornarProduto(UUID id){
+    @Override
+    public Produto retornarProduto(UUID id){
         return produtoRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
     }
 }
