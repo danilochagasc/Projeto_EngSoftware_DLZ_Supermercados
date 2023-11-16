@@ -1,9 +1,7 @@
 package com.dlz.backend.service.Carrinho;
 
-import com.dlz.backend.dto.request.CarrinhoRequestDTO;
 import com.dlz.backend.dto.response.CarrinhoResponseDTO;
 import com.dlz.backend.model.Carrinho;
-import com.dlz.backend.model.Compra;
 import com.dlz.backend.model.Produto;
 import com.dlz.backend.repository.CarrinhoRepository;
 import com.dlz.backend.repository.ProdutoRepository;

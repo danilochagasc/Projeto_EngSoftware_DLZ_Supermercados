@@ -1,11 +1,9 @@
 package com.dlz.backend.service.Carrinho;
 
-import com.dlz.backend.dto.request.CarrinhoRequestDTO;
-import com.dlz.backend.dto.request.ProdutoRequestDTO;
+
 import com.dlz.backend.dto.response.CarrinhoResponseDTO;
 import com.dlz.backend.model.Carrinho;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface CarrinhoService {
