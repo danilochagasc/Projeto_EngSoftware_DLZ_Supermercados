@@ -9,7 +9,15 @@ import com.dlz.backend.service.Carrinho.CarrinhoService;
 import com.dlz.backend.util.CarrinhoMapper;
 import com.dlz.backend.util.ClienteMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,7 +25,7 @@ import java.util.UUID;
 @Service
 @Primary
 @RequiredArgsConstructor
-public class ClienteServiceImplements implements ClienteService{
+public class ClienteServiceImplements implements ClienteService, UserDetailsService {
 
     final ClienteRepository clienteRepository;
     final ClienteMapper clienteMapper;
@@ -37,8 +45,17 @@ public class ClienteServiceImplements implements ClienteService{
     @Override
     public ClienteResponseDTO registrar(ClienteRequestDTO clienteRequestDTO) {
 
-        //transformando o clienteRequestDTO em um cliente(entidade)
-        Cliente cliente = clienteMapper.toCliente(clienteRequestDTO);
+        //verificando se o email já está cadastrado
+        if(clienteRepository.findByEmail(clienteRequestDTO.getEmail()) != null){
+            throw new RuntimeException("Email já cadastrado");
+        }
+
+        //Encriptando a senha passada em um novo cliente(entidade)
+
+        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.getSenha());
+
+        //criando um novo cliente(entidade)
+        Cliente cliente = new Cliente(clienteRequestDTO.getNome(), clienteRequestDTO.getEmail(), senhaEncriptada, clienteRequestDTO.getTelefone(), clienteRequestDTO.getEndereco(), clienteRequestDTO.getPermissao(), null);
 
         //inicializando o carrinho do cliente
         inicializaCliente(cliente);
@@ -91,5 +108,11 @@ public class ClienteServiceImplements implements ClienteService{
     public Carrinho inicializaCarrinho(){
         Carrinho carrinho = Carrinho.builder().build();
         return carrinhoService.registrar(carrinho);
+    }
+
+    //metodo do UserDetails
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return clienteRepository.findByEmail(username);
     }
 }
