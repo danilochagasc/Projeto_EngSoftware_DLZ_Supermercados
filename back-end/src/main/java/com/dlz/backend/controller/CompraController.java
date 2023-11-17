@@ -1,9 +1,11 @@
 package com.dlz.backend.controller;
 
 import com.dlz.backend.dto.request.CompraRequestDTO;
+import com.dlz.backend.model.Cliente.Cliente;
 import com.dlz.backend.service.Compra.CompraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -15,13 +17,21 @@ public class CompraController {
 
     private final CompraService compraService;
 
-    @GetMapping("/{idCliente}")
-    public ResponseEntity<?> encontrarPorId(@PathVariable(value = "idCliente") UUID idCliente){
-        return ResponseEntity.ok(compraService.encontrarPorId(idCliente));
+    @GetMapping()
+    public ResponseEntity<?> encontrarPorId(){
+
+        //obtem o cliente logado
+        Cliente clienteLogado = (Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ResponseEntity.ok(compraService.encontrarPorId(clienteLogado.getIdCliente()));
     }
 
-    @PutMapping("/{idCliente}")
-    public ResponseEntity<?> atualizar(@PathVariable(value = "idCliente") UUID idCliente, @RequestBody CompraRequestDTO compraRequestDTO){
-        return ResponseEntity.ok(compraService.atualizar(idCliente, compraRequestDTO));
+    @PutMapping()
+    public ResponseEntity<?> atualizar(@RequestBody CompraRequestDTO compraRequestDTO){
+
+        //obtem o cliente logado
+        Cliente clienteLogado = (Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ResponseEntity.ok(compraService.atualizar(clienteLogado.getIdCliente(), compraRequestDTO));
     }
 }
