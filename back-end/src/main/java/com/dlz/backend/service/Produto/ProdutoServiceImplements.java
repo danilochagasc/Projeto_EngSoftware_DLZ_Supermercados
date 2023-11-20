@@ -42,6 +42,15 @@ public class ProdutoServiceImplements implements ProdutoService{
     }
 
     @Override
+    public List<ProdutoResponseDTO> listarEmOrdemAlfabetica(String ordem) {
+        if(ordem.equals("ASC")){
+            return produtoMapper.toProdutoListDTO(produtoRepository.procurarPorOrdemAlfabeticaAscendente());
+        }else{
+            return produtoMapper.toProdutoListDTO(produtoRepository.procurarPorOrdemAlfabeticaDescendente());
+        }
+    }
+
+    @Override
     public ProdutoResponseDTO registrar(ProdutoRequestDTO produtoRequestDTO) {
 
         //transformando produtoRequestDTO em produto(entidade)
