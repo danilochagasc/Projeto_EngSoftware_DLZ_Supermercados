@@ -15,6 +15,8 @@ public interface ProdutoService {
 
     List<ProdutoResponseDTO> listarPorDepartamento(String nomeDep);
 
+    List<ProdutoResponseDTO> listarEmOrdemAlfabetica(String ordem);
+
     ProdutoResponseDTO registrar(ProdutoRequestDTO produtoRequestDTO);
 
     ProdutoResponseDTO atualizar(UUID id, ProdutoRequestDTO produtoRequestDTO);

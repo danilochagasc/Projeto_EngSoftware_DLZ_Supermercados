@@ -12,4 +12,11 @@ import java.util.UUID;
 public interface ProdutoRepository extends JpaRepository<Produto, UUID>{
     @Query("SELECT p FROM Produto p WHERE p.departamento.nome = ?1")
     List<Produto> procurarPorDepartamento(String nomeDepartamento);
+
+    @Query("SELECT p FROM Produto p ORDER BY p.nome ASC")
+    List<Produto> procurarPorOrdemAlfabeticaAscendente();
+
+    @Query("SELECT p FROM Produto p ORDER BY p.nome DESC")
+    List<Produto> procurarPorOrdemAlfabeticaDescendente();
+
 }
