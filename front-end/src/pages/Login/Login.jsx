@@ -36,7 +36,7 @@ export default function Login() {
           <div className="google-login"><img src={google} alt="" className="login-image" /></div>
         </div>
 
-        <p className="signin">Não tem uma conta? <a href="#" className="signin-link">Registre-se</a></p>
+        <p className="signin">Não tem uma conta? <a href="/cadastro" className="signin-link">Registre-se</a></p>
       </div>
     </main>
   );

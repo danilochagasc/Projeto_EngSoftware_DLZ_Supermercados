@@ -59,6 +59,7 @@
   font-style: italic;
   margin: 0 0 7vh 1em;
   color: #3A62C8;
+  align-self: flex-start;
 }
 
 .or {
