@@ -65,7 +65,7 @@
 Os commits devem utilizar um padrão objetivo e direto, deixando a linha do tempo do projeto mais estruturada e de fácil entendimento.
 
 - Padrão utilizado:
-  <O que foi feito>...<O que sofreu alteração>
+   <Mudança feita>...<O que sofreu alteração>
 
 ### Branches
 - Utilizar as branches "back-end" e "front-end" para códigos de back-end e front-end, respectivamente.
