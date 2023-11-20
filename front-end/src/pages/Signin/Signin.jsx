@@ -15,8 +15,8 @@ export default function Signin() {
         <h1 className="title">Registre-se</h1>
         <div className="line-title"></div>
         <form action="" className="form">
-          <InputField placeholder="Email" type="email" />
           <InputField placeholder="Nome Completo" type="text" />
+          <InputField placeholder="Email" type="email" />
           <InputField placeholder="Endereço" type="text" />
           <InputField placeholder="Telefone" type="tel" />
           <InputField placeholder="Senha" type="password" />

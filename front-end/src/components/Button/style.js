@@ -11,6 +11,7 @@ export const ButtonStyle = styled.button`
   font-size: 120%;
   font-weight: bold;
   color: white;
+  cursor: pointer;
 `;
 
 
