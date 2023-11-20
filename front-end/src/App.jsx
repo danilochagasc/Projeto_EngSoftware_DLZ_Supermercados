@@ -1,12 +1,12 @@
 import React from 'react';
 import GlobalStyle from './styles/globalStyle.js';
-import Login from './pages/Login/Login.jsx';
+import { Login, Signin } from './pages';
 
 function App() {
   return (
     <div>
       <GlobalStyle />
-      <Login />
+      <Signin />
     </div>
   )
 }
