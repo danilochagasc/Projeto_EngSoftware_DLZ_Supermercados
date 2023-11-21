@@ -25,7 +25,7 @@ public class ClienteController {
     private final TokenService tokenService;
     private final ClienteMapper clienteMapper;
 
-    @GetMapping("/porId")
+    @GetMapping()
     public ResponseEntity<ClienteResponseDTO> encontrarPorId(){
 
         //obtem o cliente logado
