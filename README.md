@@ -55,8 +55,7 @@
         |-- styles/
     |-- public/
 |
-|-- padroes-adotados/* (Documento referente as regras de verificação e análise de requisitos)
-|-- documentacao/* (Documento que contém todas as especificações do Software)
+|-- documentacao/* (Conjunto de documentos que contêm as especificações do Software)
 ```
 
 ## Regras e Padrões de Uso do Git
