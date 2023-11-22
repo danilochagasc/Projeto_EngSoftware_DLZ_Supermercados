@@ -12,7 +12,7 @@ export default function Button(props) {
   }
 
   return (
-    <ButtonStyle style={size}>{props.children}</ButtonStyle>
+    <ButtonStyle style={size} onClick={props.onClick}>{props.children}</ButtonStyle>
   );
 }
 

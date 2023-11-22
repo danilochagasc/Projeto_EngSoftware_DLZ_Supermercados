@@ -28,8 +28,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   async function signin(userData) { //COLOCAR UM TRATAMENTO DE EXCEÇÃO AQUI
-    await userApi.register(userData);
-    setLoading(false);
+    try {
+      await userApi.register(userData);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+
     window.alert("Cadastro realizado com sucesso!")//COLOCAR UM TOAST AQUI
   }
 
