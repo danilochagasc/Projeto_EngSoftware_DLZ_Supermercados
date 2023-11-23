@@ -12,7 +12,9 @@ public interface ClienteService {
 
     ClienteResponseDTO registrar(ClienteRequestDTO clienteRequestDTO);
 
-    ClienteResponseDTO atualizar(UUID id, ClienteRequestDTO clienteRequestDTO);
+    ClienteResponseDTO atualizarDados(UUID id, ClienteRequestDTO clienteRequestDTO);
+
+    ClienteResponseDTO atualizarSenha(UUID id, ClienteRequestDTO clienteRequestDTO);
 
     String deletar(UUID id);
 

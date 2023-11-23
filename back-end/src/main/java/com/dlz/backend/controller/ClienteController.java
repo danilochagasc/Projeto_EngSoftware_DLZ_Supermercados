@@ -25,7 +25,7 @@ public class ClienteController {
     private final TokenService tokenService;
     private final ClienteMapper clienteMapper;
 
-    @GetMapping("/porId")
+    @GetMapping()
     public ResponseEntity<ClienteResponseDTO> encontrarPorId(){
 
         //obtem o cliente logado
@@ -60,13 +60,22 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/atualizar")
-    public ResponseEntity<ClienteResponseDTO> atualizar(@RequestBody ClienteRequestDTO clienteRequestDTO){
+    @PutMapping("/atualizarCliente")
+    public ResponseEntity<ClienteResponseDTO> atualizarCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
         //obtem o cliente logado
         Cliente clienteLogado = (Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return ResponseEntity.ok().body(clienteService.atualizar(clienteLogado.getIdCliente(), clienteRequestDTO));
+        return ResponseEntity.ok().body(clienteService.atualizarDados(clienteLogado.getIdCliente(), clienteRequestDTO));
+    }
+
+    @PutMapping("/atualizarSenhaCliente")
+    public ResponseEntity<ClienteResponseDTO> atualizarSenhaCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
+
+        //obtem o cliente logado
+        Cliente clienteLogado = (Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ResponseEntity.ok().body(clienteService.atualizarSenha(clienteLogado.getIdCliente(), clienteRequestDTO));
     }
 
     @DeleteMapping("/deletar")

@@ -30,8 +30,13 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/porDep/{nomeDep}")
-    public ResponseEntity<List<ProdutoResponseDTO>> encontrarTodos(@PathVariable(value = "nomeDep") String nomeDep){
+    public ResponseEntity<List<ProdutoResponseDTO>> encontrarPorDepartamento(@PathVariable(value = "nomeDep") String nomeDep){
         return ResponseEntity.ok().body(produtoService.listarPorDepartamento(nomeDep));
+    }
+
+    @GetMapping(value = "/ordemAlfabetica/{ascOUdesc}")
+    public ResponseEntity<List<ProdutoResponseDTO>> encontrarTodosOrdemAlfabetica(@PathVariable(value = "ascOUdesc") String ascOUdesc){
+        return ResponseEntity.ok().body(produtoService.listarEmOrdemAlfabetica(ascOUdesc));
     }
 
     @PostMapping(value = "/registrar")

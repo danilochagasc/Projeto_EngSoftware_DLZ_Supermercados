@@ -51,7 +51,6 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
         }
 
         //Encriptando a senha passada em um novo cliente(entidade)
-
         String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.getSenha());
 
         //criando um novo cliente(entidade)
@@ -68,13 +67,29 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
     }
 
     @Override
-    public ClienteResponseDTO atualizar(UUID id, ClienteRequestDTO clienteRequestDTO) {
+    public ClienteResponseDTO atualizarDados(UUID id, ClienteRequestDTO clienteRequestDTO) {
 
         //recuperando o cliente(entidade) pelo id
         Cliente cliente = retornarCliente(id);
 
         //atualizando o cliente(entidade) com base no clienteRequestDTO
         clienteMapper.atualizarDadosCliente(cliente, clienteRequestDTO);
+
+        //salvando o cliente(entidade) no banco de dados
+        return clienteMapper.toClienteDTO(clienteRepository.save(cliente));
+    }
+
+    @Override
+    public ClienteResponseDTO atualizarSenha(UUID id, ClienteRequestDTO clienteRequestDTO) {
+
+        //recuperando o cliente(entidade) pelo id
+        Cliente cliente = retornarCliente(id);
+
+        //encriptando a senha passada
+        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.getSenha());
+
+        //atualizando a senha do cliente(entidade)
+        cliente.setSenha(senhaEncriptada);
 
         //salvando o cliente(entidade) no banco de dados
         return clienteMapper.toClienteDTO(clienteRepository.save(cliente));
