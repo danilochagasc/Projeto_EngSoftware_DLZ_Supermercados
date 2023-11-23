@@ -1,15 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { } from "../pages";
-
-const Home = () => {
-  return (
-    <div>
-      <h1>HOME</h1><br />
-      <button>signout</button>
-    </div>
-  );
-}
+import { Home } from "../pages";
 
 const HomeRoutes = () => {
   return (

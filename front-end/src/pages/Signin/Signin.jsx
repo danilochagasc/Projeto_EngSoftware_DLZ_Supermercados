@@ -14,7 +14,9 @@ export default function Signin() {
 
   function handleSignin() {
     setLoading(true);
+    console.log("ENTROU SIGNIN");
     signin(data);
+    console.log("PASSOU SIGNIN");
   }
 
   function storeAuthData(i) {

@@ -6,7 +6,6 @@ import HomeRoutes from "./home.routes";
 
 const AppRoutes = () => {
   const { signed, loading } = useAuth();
-  console.log("Signed: " + signed);
   return (
     <>
       {signed ? <HomeRoutes /> : <AuthRoutes />}
