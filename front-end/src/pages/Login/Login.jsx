@@ -46,10 +46,10 @@ export default function Login() {
           <div className="line-or"></div>
         </div>
 
-        <div className="logins">
+        {/* <div className="logins">
           <div className="facebook-login"><img src={facebook} alt="" className="login-image" /></div>
           <div className="google-login"><img src={google} alt="" className="login-image" /></div>
-        </div>
+        </div> */}
 
         <p className="signin">Não tem uma conta? <a href="/cadastro" className="signin-link">Registre-se</a></p>
       </div>

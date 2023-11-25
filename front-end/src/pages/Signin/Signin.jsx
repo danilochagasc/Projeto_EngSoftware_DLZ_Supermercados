@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/auth";
-import { InputField, Button } from '../../components';
-import logoDLZ from '../../assets/logoDLZ.svg';
+import { InputField, Button } from "../../components";
+import logoDLZ from "../../assets/logoDLZ.svg";
 import "./style.css";
 
 export default function Signin() {
@@ -12,11 +13,12 @@ export default function Signin() {
 
   const { signin, setLoading } = useAuth();
 
+  const navigate = useNavigate();
+
   function handleSignin() {
-    setLoading(true);
-    console.log("ENTROU SIGNIN");
-    signin(data);
-    console.log("PASSOU SIGNIN");
+    /* setLoading(true);           //LIBERAR QUANDO ARRUMAR O BACK
+    signin(data); */
+    navigate('/');
   }
 
   function storeAuthData(i) {

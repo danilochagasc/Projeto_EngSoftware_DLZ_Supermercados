@@ -1,11 +1,11 @@
 import React from 'react';
+import './style.css';
 
 export default function Home() {
 
   return (
     <div>
-      <h1>HOME</h1><br />
-      <button>signout</button>
+      <h1>This is the home page</h1>
     </div>
   );
 }
