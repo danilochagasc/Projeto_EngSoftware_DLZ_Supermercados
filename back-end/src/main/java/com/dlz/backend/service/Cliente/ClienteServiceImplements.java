@@ -2,18 +2,10 @@ package com.dlz.backend.service.Cliente;
 
 import com.dlz.backend.dto.request.ClienteRequestDTO;
 import com.dlz.backend.dto.response.ClienteResponseDTO;
-import com.dlz.backend.model.Carrinho;
 import com.dlz.backend.model.Cliente.Cliente;
 import com.dlz.backend.repository.ClienteRepository;
-import com.dlz.backend.service.Carrinho.CarrinhoService;
-import com.dlz.backend.util.CarrinhoMapper;
-import com.dlz.backend.util.ClienteMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,9 +20,6 @@ import java.util.UUID;
 public class ClienteServiceImplements implements ClienteService, UserDetailsService {
 
     final ClienteRepository clienteRepository;
-    final ClienteMapper clienteMapper;
-    final CarrinhoService carrinhoService;
-    final CarrinhoMapper carrinhoMapper;
 
     @Override
     public ClienteResponseDTO encontrarPorId(UUID id) {
@@ -39,31 +28,28 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
         Cliente cliente = retornarCliente(id);
 
         //retornando o cliente(entidade) em formato de ClienteResponseDTO
-        return clienteMapper.toClienteDTO(cliente);
+        return new ClienteResponseDTO(cliente);
     }
 
     @Override
     public ClienteResponseDTO registrar(ClienteRequestDTO clienteRequestDTO) {
 
         //verificando se o email já está cadastrado
-        if(clienteRepository.findByEmail(clienteRequestDTO.getEmail()) != null){
+        if(clienteRepository.findByEmail(clienteRequestDTO.email()) != null){
             throw new RuntimeException("Email já cadastrado");
         }
 
         //Encriptando a senha passada em um novo cliente(entidade)
-        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.getSenha());
+        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.senha());
 
         //criando um novo cliente(entidade)
-        Cliente cliente = new Cliente(clienteRequestDTO.getNome(), clienteRequestDTO.getEmail(), senhaEncriptada, clienteRequestDTO.getTelefone(), clienteRequestDTO.getEndereco(), clienteRequestDTO.getPermissao(), null);
-
-        //inicializando o carrinho do cliente
-        inicializaCliente(cliente);
+        Cliente cliente = new Cliente(clienteRequestDTO, senhaEncriptada);
 
         //salvando o cliente(entidade) no banco de dados
         clienteRepository.save(cliente);
 
         //retornando o cliente(entidade) em formato de ClienteResponseDTO
-        return clienteMapper.toClienteDTO(cliente);
+        return new ClienteResponseDTO(cliente);
     }
 
     @Override
@@ -73,10 +59,16 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
         Cliente cliente = retornarCliente(id);
 
         //atualizando o cliente(entidade) com base no clienteRequestDTO
-        clienteMapper.atualizarDadosCliente(cliente, clienteRequestDTO);
+        cliente.setNome(clienteRequestDTO.nome());
+        cliente.setEmail(clienteRequestDTO.email());
+        cliente.setTelefone(clienteRequestDTO.telefone());
+        cliente.setEndereco(clienteRequestDTO.endereco());
 
         //salvando o cliente(entidade) no banco de dados
-        return clienteMapper.toClienteDTO(clienteRepository.save(cliente));
+        clienteRepository.save(cliente);
+
+        //retornando o cliente(entidade) em formato de ClienteResponseDTO
+        return new ClienteResponseDTO(cliente);
     }
 
     @Override
@@ -86,13 +78,15 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
         Cliente cliente = retornarCliente(id);
 
         //encriptando a senha passada
-        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.getSenha());
+        String senhaEncriptada = new BCryptPasswordEncoder().encode(clienteRequestDTO.senha());
 
         //atualizando a senha do cliente(entidade)
         cliente.setSenha(senhaEncriptada);
 
         //salvando o cliente(entidade) no banco de dados
-        return clienteMapper.toClienteDTO(clienteRepository.save(cliente));
+        clienteRepository.save(cliente);
+
+        return new ClienteResponseDTO(cliente);
     }
 
     @Override
@@ -112,17 +106,6 @@ public class ClienteServiceImplements implements ClienteService, UserDetailsServ
     public Cliente retornarCliente(UUID id) {
         return clienteRepository.findById(id).orElseThrow(()->
                 new RuntimeException("Cliente não encontrado"));
-    }
-
-    //Seta o carrinho do cliente
-    public void inicializaCliente(Cliente cliente){
-        cliente.setCarrinho(inicializaCarrinho());
-    }
-
-    //Inicializa o carrinho
-    public Carrinho inicializaCarrinho(){
-        Carrinho carrinho = Carrinho.builder().build();
-        return carrinhoService.registrar(carrinho);
     }
 
     //metodo do UserDetails
