@@ -1,7 +1,7 @@
 package com.dlz.backend.service.Departamento;
 
-import com.dlz.backend.dto.response.DepartamentoResponseDTO;
 import com.dlz.backend.dto.request.DepartamentoRequestDTO;
+import com.dlz.backend.dto.response.DepartamentoResponseDTO;
 import com.dlz.backend.model.Departamento;
 
 import java.util.List;
