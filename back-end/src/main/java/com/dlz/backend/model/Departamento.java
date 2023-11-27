@@ -1,8 +1,10 @@
 package com.dlz.backend.model;
 
+import com.dlz.backend.dto.request.DepartamentoRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +24,7 @@ public class Departamento {
     private String nome;
 
     @Builder
-    public Departamento(String nome) {
-        this.nome = nome;
+    public Departamento(DepartamentoRequestDTO departamentoRequestDTO) {
+        this.nome = departamentoRequestDTO.nome();
     }
 }
