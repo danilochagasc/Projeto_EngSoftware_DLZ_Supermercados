@@ -1,6 +1,6 @@
 package com.dlz.backend.model.Cliente;
 
-import com.dlz.backend.model.Carrinho;
+import com.dlz.backend.dto.request.ClienteRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,19 +42,16 @@ public class Cliente implements UserDetails{
     @Column(nullable = false)
     private ClientePermissao permissao;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCarrinho", referencedColumnName = "idCarrinho")
-    private Carrinho carrinho;
+    //Relacionamentos
 
     @Builder
-    public Cliente(String nome, String email, String senha, String telefone, String endereco, ClientePermissao permissao, Carrinho carrinho) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.permissao = permissao;
-        this.carrinho = carrinho;
+    public Cliente(ClienteRequestDTO clienteRequestDTO, String senhaEncriptada) {
+        this.nome = clienteRequestDTO.nome();
+        this.email = clienteRequestDTO.email();
+        this.senha = senhaEncriptada;
+        this.telefone = clienteRequestDTO.telefone();
+        this.endereco = clienteRequestDTO.endereco();
+        this.permissao = clienteRequestDTO.permissao();
     }
 
     //metodos do UserDetails
