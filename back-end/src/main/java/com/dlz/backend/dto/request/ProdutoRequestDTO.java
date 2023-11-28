@@ -1,6 +1,7 @@
 package com.dlz.backend.dto.request;
 
-import com.dlz.backend.model.Produto;
+
+import com.dlz.backend.model.Departamento;
 
 import java.util.UUID;
 
@@ -9,10 +10,6 @@ public record ProdutoRequestDTO(
         int quantidade,
         int preco_em_centavos,
         String imagem,
-        UUID idDepartamento
+        Departamento departamento
 ) {
-
-    public ProdutoRequestDTO(Produto produto) {
-        this(produto.getNome(), produto.getQuantidade(), produto.getPreco_em_centavos(), produto.getImagem(), produto.getDepartamento().getIdDepartamento());
-    }
 }
