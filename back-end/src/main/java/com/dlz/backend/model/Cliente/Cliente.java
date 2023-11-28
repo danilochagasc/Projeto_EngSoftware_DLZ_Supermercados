@@ -1,6 +1,9 @@
 package com.dlz.backend.model.Cliente;
 
 import com.dlz.backend.dto.request.ClienteRequestDTO;
+import com.dlz.backend.model.Carrinho;
+import com.dlz.backend.model.Cupom;
+import com.dlz.backend.model.Pedido;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,6 +46,11 @@ public class Cliente implements UserDetails{
     private ClientePermissao permissao;
 
     //Relacionamentos
+    @ManyToMany()
+    @JoinTable(name = "CupomUsado",
+            joinColumns = @JoinColumn(name = "idCliente"),
+            inverseJoinColumns = @JoinColumn(name = "idCupom"))
+    private List<Cupom> cuponsUsados;
 
     @Builder
     public Cliente(ClienteRequestDTO clienteRequestDTO, String senhaEncriptada) {
