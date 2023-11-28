@@ -35,4 +35,10 @@ public class Produto {
     @JoinColumn(name = "idDepartamento", referencedColumnName = "idDepartamento")
     private Departamento departamento;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ItemPedido> pedidosComProduto;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<Carrinho> carrinhosComProduto;
+
 }
