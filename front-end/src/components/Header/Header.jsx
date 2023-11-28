@@ -4,7 +4,7 @@ import logoDLZ from '../../assets/logoDLZ.svg';
 import carrinhoIcon from '../../assets/carrinho-de-compras.svg';
 import "./style.css";
 
-const Header = () => {
+const Header = (props) => {
 
   const navigate = useNavigate();
 
@@ -14,7 +14,6 @@ const Header = () => {
 
   return (
     <header className='header'>
-
       <nav className="nav-top">
         <div className="logo">
           <img src={logoDLZ} alt="" />
@@ -31,13 +30,14 @@ const Header = () => {
       <nav className="nav-bottom">
         <ul className="nav-bottom-list">
           <li className='list-item'>
-            <a className='link-list-item'>Ver todas as categorias</a>
+            <button className='button-list-item' onClick={props.toggleSideBar}>Ver todas as categorias</button>
           </li>
           <li className='list-item'>
-            <a className='link-list-item' href="">Fale Conosco</a>
+            <button className='button-list-item' href="">Fale Conosco</button>
           </li>
         </ul>
       </nav>
+
     </header>
   );
 };

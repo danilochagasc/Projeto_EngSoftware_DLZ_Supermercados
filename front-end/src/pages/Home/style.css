@@ -1,0 +1,93 @@
+.container-relative {
+  position: relative;
+}
+
+
+.nav-side {
+  display: none;
+}
+
+.nav-side-open {
+  position: absolute;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  height: 100vh;
+  width: 30vw;
+
+  background-color: #fff;
+}
+
+.logo {
+  max-height: 6em;
+  width: 6em;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+
+.overlay.visible {
+  display: block;
+}
+
+.home-content {
+  display: flex;
+}
+
+.home-aside {
+  width: 20%;
+  padding: 0 3vw;
+}
+
+.navigate-ref {
+  opacity: 65%;
+}
+
+.title {
+  color: #3A62C8;
+  font-size: xx-large;
+  padding: 0;
+}
+
+.order-by {}
+
+.order-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.order-btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: medium;
+  margin: 0 0 0.5em 0;
+  cursor: pointer;
+}
+
+.order-btn:hover {
+  text-decoration: underline;
+}
+
+.home-main {
+  width: 80%;
+  padding: 0 1.5vw;
+}

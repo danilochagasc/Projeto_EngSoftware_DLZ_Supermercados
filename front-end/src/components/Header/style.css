@@ -92,15 +92,25 @@
 }
 
 .list-item {
-  margin: 0 1em;
+  margin: 0;
   font-size: 1em;
   font-weight: bold;
   color: #fff;
   cursor: pointer;
 }
 
-.link-list-item {
-  text-decoration: none;
+.button-list-item {
+  background-color: #3A62C8;
+  border-radius: 2em;
   color: #fff;
+  font-size: 1em;
+  padding: 0;
+  cursor: pointer;
+  border: none;
   font-weight: bold;
+  margin: 0;
+}
+
+.button-list-item:hover {
+  color: #c7ccea;
 }

@@ -7,6 +7,7 @@ const HomeRoutes = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/:departamento" element={<Home />}></Route>
       </Routes>
     </Router>
   );

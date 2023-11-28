@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  color: #514A4A;
+  padding: 0 0 0 1em;
+}
+
+.list-dep {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.list-dep-item {
+  padding: .5em calc(100% - 1.5em) .5em 1.5em;
+
+  white-space: nowrap;
+
+  font-weight: lighter;
+  font-size: 16px;
+
+  background-color: transparent;
+  color: #574F4F;
+
+  width: max-content;
+  max-width: 100%;
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+}
+
+.list-dep-item:hover {
+  background-color: #EAEAEA;
+}
