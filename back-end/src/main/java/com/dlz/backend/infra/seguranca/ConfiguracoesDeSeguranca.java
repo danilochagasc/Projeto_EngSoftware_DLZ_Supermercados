@@ -29,7 +29,8 @@ public class ConfiguracoesDeSeguranca {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/cliente/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/registrar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/produtos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/departamento/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)
