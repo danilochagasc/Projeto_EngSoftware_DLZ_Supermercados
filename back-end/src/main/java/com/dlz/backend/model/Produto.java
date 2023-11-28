@@ -1,5 +1,6 @@
 package com.dlz.backend.model;
 
+import com.dlz.backend.dto.request.ProdutoRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,5 +41,15 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Carrinho> carrinhosComProduto;
+
+    @Builder
+    public Produto(ProdutoRequestDTO produtoRequestDTO) {
+        this.nome = produtoRequestDTO.nome();
+        this.quantidade = produtoRequestDTO.quantidade();
+        this.preco_em_centavos = produtoRequestDTO.preco_em_centavos();
+        this.imagem = produtoRequestDTO.imagem();
+        this.departamento = produtoRequestDTO.departamento();
+
+    }
 
 }
