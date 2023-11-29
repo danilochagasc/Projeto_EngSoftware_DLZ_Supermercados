@@ -1,11 +1,9 @@
 package com.dlz.backend.model;
 
+import com.dlz.backend.dto.request.CarrinhoRequestDTO;
 import com.dlz.backend.model.Cliente.Cliente;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -36,4 +34,12 @@ public class Carrinho {
 
     @Column(nullable = false)
     private int quantidade;
+
+    @Builder
+    public Carrinho(CarrinhoRequestDTO carrinhoRequestDTO, Cliente cliente) {
+        this.cliente = cliente;
+        this.produto = carrinhoRequestDTO.produto();
+        this.cupom = null;
+        this.quantidade = carrinhoRequestDTO.quantidade();
+    }
 }
