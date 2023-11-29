@@ -53,6 +53,9 @@ public class Cliente implements UserDetails{
             inverseJoinColumns = @JoinColumn(name = "idCupom"))
     private List<Cupom> cuponsUsados;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Carrinho> carrinhos;
+
     @Builder
     public Cliente(ClienteRequestDTO clienteRequestDTO, String senhaEncriptada) {
         this.nome = clienteRequestDTO.nome();
