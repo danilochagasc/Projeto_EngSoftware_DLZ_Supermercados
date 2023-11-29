@@ -12,7 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/cliente")
@@ -22,6 +22,7 @@ public class ClienteController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping()
     public ResponseEntity<ClienteResponseDTO> encontrarPorId(){
 
@@ -31,6 +32,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(new ClienteResponseDTO(clienteLogado));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
@@ -47,6 +49,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(token);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/registrar")
     public ResponseEntity<ClienteResponseDTO> registrar(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
@@ -57,6 +60,7 @@ public class ClienteController {
         }
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizarCliente")
     public ResponseEntity<ClienteResponseDTO> atualizarCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
@@ -66,6 +70,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteService.atualizarDados(clienteLogado.getIdCliente(), clienteRequestDTO));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/atualizarSenhaCliente")
     public ResponseEntity<ClienteResponseDTO> atualizarSenhaCliente(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
@@ -75,6 +80,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteService.atualizarSenha(clienteLogado.getIdCliente(), clienteRequestDTO));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/deletar")
     public ResponseEntity<String> deletar(){
 
