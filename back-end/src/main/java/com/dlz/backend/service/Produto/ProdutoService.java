@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface ProdutoService {
 
-    ProdutoResponseDTO encontrarPorId(UUID id);
+    ProdutoResponseDTO encontrarPorId(UUID idProduto);
 
     List<ProdutoResponseDTO> listarTodos();
 
@@ -19,9 +19,13 @@ public interface ProdutoService {
 
     ProdutoResponseDTO registrar(ProdutoRequestDTO produtoRequestDTO);
 
-    ProdutoResponseDTO atualizar(UUID id, ProdutoRequestDTO produtoRequestDTO);
+    ProdutoResponseDTO atualizar(UUID idProduto, ProdutoRequestDTO produtoRequestDTO);
 
-    String deletar(UUID id);
+    void reduzirQuantidade(UUID idProduto, int quantidade);
 
-    Produto retornarProduto(UUID id);
+    void aumentarQuantidade(UUID idProduto, int quantidade);
+
+    String deletar(UUID idProduto);
+
+    Produto retornarProduto(UUID idProduto);
 }

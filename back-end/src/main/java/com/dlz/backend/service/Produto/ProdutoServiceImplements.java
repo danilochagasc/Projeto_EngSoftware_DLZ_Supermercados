@@ -20,10 +20,10 @@ public class ProdutoServiceImplements implements ProdutoService{
     final ProdutoRepository produtoRepository;
 
     @Override
-    public ProdutoResponseDTO encontrarPorId(UUID id) {
+    public ProdutoResponseDTO encontrarPorId(UUID idProduto) {
 
         //obtendo o produto(entidade) pelo id
-        Produto produto = retornarProduto(id);
+        Produto produto = retornarProduto(idProduto);
 
         //retornando o produto
         return new ProdutoResponseDTO(produto);
@@ -81,10 +81,10 @@ public class ProdutoServiceImplements implements ProdutoService{
     }
 
     @Override
-    public ProdutoResponseDTO atualizar(UUID id, ProdutoRequestDTO produtoRequestDTO) {
+    public ProdutoResponseDTO atualizar(UUID idProduto, ProdutoRequestDTO produtoRequestDTO) {
 
         //obtendo o produto(entidade) pelo id
-        Produto produto = retornarProduto(id);
+        Produto produto = retornarProduto(idProduto);
 
         //setando os novos valores
         produto.setNome(produtoRequestDTO.nome());
@@ -99,10 +99,41 @@ public class ProdutoServiceImplements implements ProdutoService{
     }
 
     @Override
-    public String deletar(UUID id) {
+    public void reduzirQuantidade(UUID idProduto, int quantidade) {
+
+            //obtendo o produto(entidade) pelo id
+            Produto produto = retornarProduto(idProduto);
+
+            //verificando se a quantidade é menor que a quantidade no estoque
+            if(produto.getQuantidade() < quantidade){
+                throw new RuntimeException("Impossível Realizar Compra, quantidade insuficiente em estoque");
+            }
+
+            //setando a nova quantidade
+            produto.setQuantidade(produto.getQuantidade() - quantidade);
+
+            //salvando o produto
+            produtoRepository.save(produto);
+    }
+
+    @Override
+    public void aumentarQuantidade(UUID idProduto, int quantidade) {
+
+            //obtendo o produto(entidade) pelo id
+            Produto produto = retornarProduto(idProduto);
+
+            //setando a nova quantidade
+            produto.setQuantidade(produto.getQuantidade() + quantidade);
+
+            //salvando o produto
+            produtoRepository.save(produto);
+    }
+
+    @Override
+    public String deletar(UUID idProduto) {
 
         //obtendo o produto(entidade) pelo id
-        Produto produto = retornarProduto(id);
+        Produto produto = retornarProduto(idProduto);
 
         //deletando o produto
         produtoRepository.delete(produto);
@@ -112,7 +143,7 @@ public class ProdutoServiceImplements implements ProdutoService{
     }
 
     @Override
-    public Produto retornarProduto(UUID id) {
-        return produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    public Produto retornarProduto(UUID idProduto) {
+        return produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 }
