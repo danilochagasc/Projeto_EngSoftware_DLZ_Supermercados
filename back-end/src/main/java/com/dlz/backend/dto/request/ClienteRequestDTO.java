@@ -1,6 +1,5 @@
 package com.dlz.backend.dto.request;
 
-import com.dlz.backend.model.Cliente.Cliente;
 import com.dlz.backend.model.Cliente.ClientePermissao;
 
 public record ClienteRequestDTO(
