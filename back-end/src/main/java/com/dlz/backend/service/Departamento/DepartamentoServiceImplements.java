@@ -19,10 +19,10 @@ public class DepartamentoServiceImplements implements DepartamentoService{
 
     final DepartamentoRepository departamentoRepository;
     @Override
-    public DepartamentoResponseDTO encontrarPorId(UUID id) {
+    public DepartamentoResponseDTO encontrarPorId(UUID idDepartamento) {
 
         //obtendo o departamento(entidade) pelo id
-        Departamento departamento = retornarDepartamento(id);
+        Departamento departamento = retornarDepartamento(idDepartamento);
 
         //retornando o departamento
         return new DepartamentoResponseDTO(departamento);
@@ -52,10 +52,10 @@ public class DepartamentoServiceImplements implements DepartamentoService{
     }
 
     @Override
-    public DepartamentoResponseDTO atualizar(UUID id, DepartamentoRequestDTO departamentoRequestDTO) {
+    public DepartamentoResponseDTO atualizar(UUID idDepartamento, DepartamentoRequestDTO departamentoRequestDTO) {
 
         //obtendo o departamento(entidade) pelo id
-        Departamento departamento = retornarDepartamento(id);
+        Departamento departamento = retornarDepartamento(idDepartamento);
 
         //setando os novos valores
         departamento.setNome(departamentoRequestDTO.nome());
@@ -68,10 +68,10 @@ public class DepartamentoServiceImplements implements DepartamentoService{
     }
 
     @Override
-    public String deletar(UUID id) {
+    public String deletar(UUID idDepartamento) {
 
         //obtendo o departamento(entidade) pelo id
-        Departamento departamento = retornarDepartamento(id);
+        Departamento departamento = retornarDepartamento(idDepartamento);
 
         //deletando o departamento
         departamentoRepository.delete(departamento);
@@ -80,7 +80,7 @@ public class DepartamentoServiceImplements implements DepartamentoService{
     }
 
     @Override
-    public Departamento retornarDepartamento(UUID id) {
-        return departamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+    public Departamento retornarDepartamento(UUID idDepartamento) {
+        return departamentoRepository.findById(idDepartamento).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
     }
 }

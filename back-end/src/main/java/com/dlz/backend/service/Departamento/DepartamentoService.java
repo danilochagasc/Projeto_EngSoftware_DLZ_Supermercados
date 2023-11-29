@@ -9,15 +9,15 @@ import java.util.UUID;
 
 public interface DepartamentoService {
 
-    DepartamentoResponseDTO encontrarPorId(UUID id);
+    DepartamentoResponseDTO encontrarPorId(UUID idDepartamento);
 
     List<DepartamentoResponseDTO> listarTodos();
 
     DepartamentoResponseDTO registrar(DepartamentoRequestDTO departamentoRequestDTO);
 
-    DepartamentoResponseDTO atualizar(UUID id, DepartamentoRequestDTO departamentoRequestDTO);
+    DepartamentoResponseDTO atualizar(UUID idDepartamento, DepartamentoRequestDTO departamentoRequestDTO);
 
-    String deletar(UUID id);
+    String deletar(UUID idDepartamento);
 
-    Departamento retornarDepartamento(UUID id);
+    Departamento retornarDepartamento(UUID idDepartamento);
 }
