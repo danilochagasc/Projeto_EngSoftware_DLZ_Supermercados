@@ -30,4 +30,12 @@ public class ItemPedido {
 
     @Column(nullable = false)
     private int precoVenda;
+
+    @Builder
+    public ItemPedido(Pedido pedido, Produto produto, int quantidade, int precoVenda) {
+        this.pedido = pedido;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.precoVenda = precoVenda;
+    }
 }

@@ -52,4 +52,8 @@ public class Produto {
 
     }
 
+    public Produto(UUID idProduto){
+        this.idProduto = idProduto;
+    }
+
 }

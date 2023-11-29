@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -52,6 +53,9 @@ public class Cliente implements UserDetails{
             inverseJoinColumns = @JoinColumn(name = "idCupom"))
     private List<Cupom> cuponsUsados;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Carrinho> carrinhos;
+
     @Builder
     public Cliente(ClienteRequestDTO clienteRequestDTO, String senhaEncriptada) {
         this.nome = clienteRequestDTO.nome();
@@ -60,7 +64,21 @@ public class Cliente implements UserDetails{
         this.telefone = clienteRequestDTO.telefone();
         this.endereco = clienteRequestDTO.endereco();
         this.permissao = clienteRequestDTO.permissao();
+        this.cuponsUsados = new ArrayList<>();
     }
+
+    //metodos para adicionar e remover cupons
+    public void adicionarCupom(Cupom cupom) {
+        this.cuponsUsados.add(cupom);
+        cupom.getClientesComCupom().add(this);
+    }
+
+    public void removerCupom(Cupom cupom) {
+        this.cuponsUsados.remove(cupom);
+        cupom.getClientesComCupom().remove(this);
+    }
+
+
 
     //metodos do UserDetails
     @Override
