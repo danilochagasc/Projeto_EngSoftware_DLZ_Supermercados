@@ -7,7 +7,6 @@ import com.dlz.backend.model.Cliente.Cliente;
 import com.dlz.backend.model.Cupom;
 import com.dlz.backend.repository.CarrinhoRepository;
 import com.dlz.backend.repository.CupomRepository;
-import com.dlz.backend.repository.ProdutoRepository;
 import com.dlz.backend.service.Cliente.ClienteService;
 import com.dlz.backend.service.Produto.ProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -170,6 +169,16 @@ public class CarrinhoServiceImplements implements CarrinhoService{
 
             //retornando uma mensagem de sucesso
             return "Carrinho deletado com sucesso";
+    }
+
+    @Override
+    public void limparCarrinho(UUID idCliente) {
+
+        //obtendo o carrinho pelo id do cliente
+        List<Carrinho> carrinho = carrinhoRepository.encontrarPorIdCliente(idCliente);
+
+        //limpando o carrinho
+        carrinhoRepository.deleteAll(carrinho);
     }
 
     @Override

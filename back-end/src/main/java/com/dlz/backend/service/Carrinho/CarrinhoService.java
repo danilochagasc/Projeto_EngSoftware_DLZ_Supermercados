@@ -24,6 +24,8 @@ public interface CarrinhoService {
 
     String deletarCarrinho(UUID idCliente);
 
+    void limparCarrinho(UUID idCliente);
+
     List<Carrinho> retornarCarrinho(UUID idCliente);
 
 
