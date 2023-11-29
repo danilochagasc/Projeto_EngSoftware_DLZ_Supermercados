@@ -31,6 +31,7 @@ public class ConfiguracoesDeSeguranca {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/cliente/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/registrar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/departamento/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/produto/**").hasRole("ADMIN")
