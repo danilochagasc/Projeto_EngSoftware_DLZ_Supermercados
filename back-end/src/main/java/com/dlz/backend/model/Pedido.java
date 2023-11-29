@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,8 +24,8 @@ public class Pedido {
     @Setter(AccessLevel.NONE)
     private UUID idPedido;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private String dataHora;
+    @Column(nullable = false)
+    private Date data;
 
     @ManyToOne()
     @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
@@ -32,6 +33,5 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> produtosNoPedido;
-
 
 }
