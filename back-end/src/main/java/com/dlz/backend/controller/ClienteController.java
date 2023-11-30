@@ -47,14 +47,13 @@ public class ClienteController {
         return ResponseEntity.ok().body(token);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/registrar")
-    public ResponseEntity<ClienteResponseDTO> registrar(@RequestBody ClienteRequestDTO clienteRequestDTO){
+    public ResponseEntity<?> registrar(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
         try{
             return ResponseEntity.ok().body(clienteService.registrar(clienteRequestDTO));
-        }catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        }catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
