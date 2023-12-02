@@ -5,7 +5,7 @@ import AuthRoutes from "./auth.routes";
 import HomeRoutes from "./home.routes";
 
 const AppRoutes = () => {
-  const { signed, loading } = useAuth();
+  const { signed } = useAuth();
   return (
     <>
       {signed ? <HomeRoutes /> : <AuthRoutes />}

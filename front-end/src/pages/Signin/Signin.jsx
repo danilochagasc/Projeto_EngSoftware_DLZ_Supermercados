@@ -10,13 +10,10 @@ export default function Signin() {
 
   const [data, setData] = useState(initValue);
 
-  const { signin, setLoading } = useAuth();
+  const { signin } = useAuth();
 
   function handleSignin() {
-    setLoading(true);
-    console.log("ENTROU SIGNIN");
     signin(data);
-    console.log("PASSOU SIGNIN");
   }
 
   function storeAuthData(i) {

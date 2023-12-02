@@ -7,13 +7,12 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const [token, setToken] = useState();
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    async function loadStorageData() {
-      const storagedUser = await localStorage.getItem("user");
-      const storagedToken = await localStorage.getItem("token");
+    function loadStorageData() {
+      const storagedUser = localStorage.getItem("user");
+      const storagedToken = localStorage.getItem("token");
 
       if (storagedUser && storagedToken) {
         api.defaults.headers.common.Authorization = `Baerer ${storagedToken}`;
@@ -21,16 +20,16 @@ export const AuthProvider = ({ children }) => {
         setToken(storagedToken);
       }
 
-      setLoading(false);
     }
 
     loadStorageData();
-  }, []);
+  }, [token]);
 
   async function signin(userData) { //COLOCAR UM TRATAMENTO DE EXCEÇÃO AQUI
     try {
       await userApi.register(userData);
-      setLoading(false);
+      window.alert("Passou o response");
+      //window.alert("Passou o response" + response.data);
     } catch (error) {
       console.log(error);
     }
@@ -39,27 +38,33 @@ export const AuthProvider = ({ children }) => {
   }
 
   async function login(userData) {
-    const response = await userApi.authenticate(userData);
-    setLoading(false);
+    try {
+      console.log(userData);
+      const response = await userApi.authenticate(userData); // ERRO
 
-    api.defaults.headers.common.Authorization = `Baerer ${response.data.token}`;
-    setUser(JSON.parse(userData));
-    setToken(response.data.token);
+      api.defaults.headers.common.Authorization = `Bearer ${response.data}`;
 
-    await localStorage.setItem("user", JSON.stringify(userData));
-    await localStorage.setItem("token", response.data.token);
+      const stringUser = JSON.stringify(userData);
+      setUser(JSON.parse(stringUser));
+      setToken(response.data);
+      console.log(response);
 
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", response.data);
+    } catch (error) {
+      window.alert(error)
+    }
   }
 
-  async function logout() {
-    await localStorage.removeItem("user");
-    await localStorage.removeItem("token");
+  function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
     setToken(null);
   }
   //!!token
   return (
-    <AuthContext.Provider value={{ signed: !!token, user, token, loading, setLoading, signin, login, logout }}>
+    <AuthContext.Provider value={{ signed: !!token, user, token, signin, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
