@@ -29,18 +29,15 @@ export const AuthProvider = ({ children }) => {
     try {
       await userApi.register(userData);
       window.alert("Passou o response");
-      //window.alert("Passou o response" + response.data);
     } catch (error) {
-      console.log(error);
+      window.alert(error);
     }
-
-    window.alert("Cadastro realizado com sucesso!")//COLOCAR UM TOAST AQUI
   }
 
   async function login(userData) {
     try {
       console.log(userData);
-      const response = await userApi.authenticate(userData); // ERRO
+      const response = await userApi.authenticate(userData);
 
       api.defaults.headers.common.Authorization = `Bearer ${response.data}`;
 
@@ -52,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", response.data);
     } catch (error) {
-      window.alert(error)
+      window.alert(error);
     }
   }
 
@@ -61,6 +58,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setUser(null);
     setToken(null);
+    window.location.reload();
   }
   //!!token
   return (

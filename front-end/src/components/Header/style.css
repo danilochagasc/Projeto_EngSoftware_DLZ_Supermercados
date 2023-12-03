@@ -14,7 +14,7 @@
   justify-content: space-between;
 }
 
-.logo {
+.logo-header {
   max-height: 5.5em;
   width: 5.5em;
   display: flex;
@@ -75,6 +75,7 @@
 .car-btn img {
   width: 3em;
   height: 3em;
+  color: #fff;
 }
 
 .nav-bottom {
