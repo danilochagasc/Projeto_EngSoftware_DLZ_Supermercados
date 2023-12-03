@@ -11,14 +11,10 @@ export default function Signin() {
 
   const [data, setData] = useState(initValue);
 
-  const { signin, setLoading } = useAuth();
-
-  const navigate = useNavigate();
+  const { signin } = useAuth();
 
   function handleSignin() {
-    /* setLoading(true);           //LIBERAR QUANDO ARRUMAR O BACK
-    signin(data); */
-    navigate('/');
+    signin(data);
   }
 
   function storeAuthData(i) {

@@ -5,7 +5,6 @@ import com.dlz.backend.dto.response.ClienteResponseDTO;
 import com.dlz.backend.infra.seguranca.TokenService;
 import com.dlz.backend.model.Cliente.Cliente;
 import com.dlz.backend.service.Cliente.ClienteService;
-import com.dlz.backend.util.ClienteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,7 +21,6 @@ public class ClienteController {
     private final ClienteService clienteService;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
-    private final ClienteMapper clienteMapper;
 
     @GetMapping()
     public ResponseEntity<ClienteResponseDTO> encontrarPorId(){
@@ -31,14 +28,14 @@ public class ClienteController {
         //obtem o cliente logado
         Cliente clienteLogado = (Cliente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return ResponseEntity.ok().body(clienteMapper.toClienteDTO(clienteLogado));
+        return ResponseEntity.ok().body(new ClienteResponseDTO(clienteLogado));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
         //gera um token referente ao email e senha passados
-        var emailSenha = new UsernamePasswordAuthenticationToken(clienteRequestDTO.getEmail(), clienteRequestDTO.getSenha());
+        var emailSenha = new UsernamePasswordAuthenticationToken(clienteRequestDTO.email(), clienteRequestDTO.senha());
 
         //valida o token gerado acima
         var autenticacao = authenticationManager.authenticate(emailSenha);
@@ -51,12 +48,12 @@ public class ClienteController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<ClienteResponseDTO> registrar(@RequestBody ClienteRequestDTO clienteRequestDTO){
+    public ResponseEntity<?> registrar(@RequestBody ClienteRequestDTO clienteRequestDTO){
 
         try{
             return ResponseEntity.ok().body(clienteService.registrar(clienteRequestDTO));
-        }catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        }catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

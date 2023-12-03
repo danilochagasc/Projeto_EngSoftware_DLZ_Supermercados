@@ -1,28 +1,26 @@
 package com.dlz.backend.dto.response;
 
 import com.dlz.backend.model.Carrinho;
-import com.dlz.backend.model.Cliente.Cliente;
-import com.dlz.backend.util.ProdutoMapper;
-import lombok.Getter;
 
-import java.util.List;
 import java.util.UUID;
 
-@Getter
-public class CarrinhoResponseDTO {
+public record CarrinhoResponseDTO(
 
-    private UUID idCarrinho;
+        UUID idCarrinho,
 
-    private UUID idCliente;
+        UUID idCliente,
 
-    private UUID idCompra;
+        ProdutoResponseDTO produto,
 
-    private List<ProdutoResponseDTO> produtos;
+        int quantidade,
 
-    public CarrinhoResponseDTO(Carrinho carrinho){
-        this.idCarrinho = carrinho.getIdCarrinho();
-        this.idCliente = carrinho.getCliente().getIdCliente();
-        this.idCompra = carrinho.getCompra().getIdCompra();
-        this.produtos = ProdutoMapper.toProdutoListDTO(carrinho.getProdutos());
+        String cupomAplicado
+) {
+    public CarrinhoResponseDTO(Carrinho carrinho) {
+        this(carrinho.getIdCarrinho(),
+                carrinho.getCliente().getIdCliente(),
+                new ProdutoResponseDTO(carrinho.getProduto()),
+                carrinho.getQuantidade(),
+                carrinho.getCupom() == null ? "Nenhum cupom aplicado" : carrinho.getCupom().getCodigo());
     }
 }

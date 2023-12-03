@@ -8,11 +8,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -24,12 +28,24 @@ public class ConfiguracoesDeSeguranca {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf((csrf)->csrf.disable())
+                .csrf((csrf) -> csrf.disable())
+                .cors(cors -> cors
+                        .configurationSource(request -> {
+                            CorsConfiguration config = new CorsConfiguration();
+                            config.applyPermitDefaultValues();
+                            config.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+                            return config;
+                        }))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/cliente/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cliente/registrar").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/produtos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/departamento/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/departamento/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/cupom/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filtroDeSeguranca, UsernamePasswordAuthenticationFilter.class)

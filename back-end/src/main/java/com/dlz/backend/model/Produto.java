@@ -1,5 +1,6 @@
 package com.dlz.backend.model;
 
+import com.dlz.backend.dto.request.ProdutoRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,16 +36,24 @@ public class Produto {
     @JoinColumn(name = "idDepartamento", referencedColumnName = "idDepartamento")
     private Departamento departamento;
 
-    @ManyToMany(mappedBy = "produtos")
-    private List<Carrinho> carrinhos;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ItemPedido> pedidosComProduto;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<Carrinho> carrinhosComProduto;
 
     @Builder
-    public Produto(String nome, int quantidade, int preco_em_centavos, String imagem, Departamento departamento, List<Carrinho> carrinhos) {
-        this.nome = nome;
-        this.quantidade = quantidade;
-        this.preco_em_centavos = preco_em_centavos;
-        this.imagem = imagem;
-        this.departamento = departamento;
-        this.carrinhos = carrinhos;
+    public Produto(ProdutoRequestDTO produtoRequestDTO) {
+        this.nome = produtoRequestDTO.nome();
+        this.quantidade = produtoRequestDTO.quantidade();
+        this.preco_em_centavos = produtoRequestDTO.preco_em_centavos();
+        this.imagem = produtoRequestDTO.imagem();
+        this.departamento = produtoRequestDTO.departamento();
+
     }
+
+    public Produto(UUID idProduto){
+        this.idProduto = idProduto;
+    }
+
 }

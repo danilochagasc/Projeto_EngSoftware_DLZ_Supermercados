@@ -8,12 +8,14 @@ import "./style.css";
 
 export default function Login() {
 
-  const [data, setData] = useState();
+  const initValue = { email: "", senha: "" }
 
-  const { login, setLoading } = useAuth();
+  const [data, setData] = useState(initValue);
 
-  function handleLogin() {
-    setLoading(true);
+  const { login } = useAuth();
+
+  function handleLogin(event) {
+    event.preventDefault();
     login(data);
   }
 
@@ -37,7 +39,7 @@ export default function Login() {
 
           <a href="#" className="forgot-password">Esqueceu sua senha?</a>
 
-          <Button size="large" onCLick={handleLogin}>Login</Button>
+          <Button size="large" onClick={handleLogin}>Login</Button>
         </form>
 
         <div className="or">

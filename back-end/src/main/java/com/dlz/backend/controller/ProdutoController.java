@@ -6,9 +6,7 @@ import com.dlz.backend.service.Produto.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,46 +17,38 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
 
-    @GetMapping(value = "/porId/{id}")
-    public ResponseEntity<ProdutoResponseDTO> encontrarPorId(@PathVariable(value = "id") UUID id){
-        return ResponseEntity.ok().body(produtoService.encontrarPorId(id));
+    @GetMapping("/{idProduto}")
+    public ResponseEntity<ProdutoResponseDTO> encontrarPorId(@PathVariable UUID idProduto) {
+        return ResponseEntity.ok().body(produtoService.encontrarPorId(idProduto));
     }
 
-    @GetMapping()
-    public ResponseEntity<List<ProdutoResponseDTO>> encontrarTodos(){
+    @GetMapping("/listar")
+    public ResponseEntity<List<ProdutoResponseDTO>> encontrarTodos() {
         return ResponseEntity.ok().body(produtoService.listarTodos());
     }
 
-    @GetMapping(value = "/porDep/{nomeDep}")
-    public ResponseEntity<List<ProdutoResponseDTO>> encontrarPorDepartamento(@PathVariable(value = "nomeDep") String nomeDep){
+    @GetMapping("/listarPorDep/{nomeDep}")
+    public ResponseEntity<List<ProdutoResponseDTO>> encontrarPorDepartamento(@PathVariable String nomeDep) {
         return ResponseEntity.ok().body(produtoService.listarPorDepartamento(nomeDep));
     }
 
-    @GetMapping(value = "/ordemAlfabetica/{ascOUdesc}")
-    public ResponseEntity<List<ProdutoResponseDTO>> encontrarTodosOrdemAlfabetica(@PathVariable(value = "ascOUdesc") String ascOUdesc){
-        return ResponseEntity.ok().body(produtoService.listarEmOrdemAlfabetica(ascOUdesc));
+    @GetMapping("/ordemAlfabetica/{ASCouDESC}")
+    public ResponseEntity<List<ProdutoResponseDTO>> ordemAlfabetica(@PathVariable String ASCouDESC) {
+        return ResponseEntity.ok().body(produtoService.listarEmOrdemAlfabetica(ASCouDESC));
     }
 
-    @PostMapping(value = "/registrar")
-    public ResponseEntity<ProdutoResponseDTO> registrarProduto(@RequestBody ProdutoRequestDTO produtoRequestDTO, UriComponentsBuilder uriBuilder){
-
-        //cadastrando um produto
-        ProdutoResponseDTO produtoResponseDTO = produtoService.registrar(produtoRequestDTO);
-
-        //uri criada para o novo produto
-        URI uri = uriBuilder.path("produto/{id}").buildAndExpand(produtoResponseDTO.getIdProduto()).toUri();
-
-        //retornando o produto cadastrado com status 201("created")
-        return ResponseEntity.created(uri).body(produtoResponseDTO);
+    @PostMapping("/registrar")
+    public ResponseEntity<ProdutoResponseDTO> registrar(@RequestBody ProdutoRequestDTO produtoRequestDTO) {
+        return ResponseEntity.ok().body(produtoService.registrar(produtoRequestDTO));
     }
 
-    @PutMapping(value = "/atualizar/{id}")
-    public ResponseEntity<ProdutoResponseDTO> atualizarProduto(@PathVariable(value = "id") UUID id, @RequestBody ProdutoRequestDTO produtoRequestDTO){
-        return ResponseEntity.ok().body(produtoService.atualizar(id, produtoRequestDTO));
+    @PutMapping("/atualizar/{idProduto}")
+    public ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable UUID idProduto, @RequestBody ProdutoRequestDTO produtoRequestDTO) {
+        return ResponseEntity.ok().body(produtoService.atualizar(idProduto, produtoRequestDTO));
     }
 
-    @DeleteMapping(value = "/deletar/{id}")
-    public ResponseEntity<String> deletarProduto(@PathVariable(name = "id") UUID id){
-        return ResponseEntity.ok().body(produtoService.deletar(id));
+    @DeleteMapping("/deletar/{idProduto}")
+    public ResponseEntity<String> deletar(@PathVariable UUID idProduto) {
+        return ResponseEntity.ok().body(produtoService.deletar(idProduto));
     }
 }
