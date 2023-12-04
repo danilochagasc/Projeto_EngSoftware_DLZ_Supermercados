@@ -25,7 +25,7 @@
   padding: 0 0 0 10vw;
 }
 
-.logo {
+.logo-auth {
   height: 40vh;
 }
 
@@ -39,8 +39,9 @@
   box-sizing: border-box;
 }
 
-.title {
+.title-auth {
   margin: .3em 0;
+  color: #333;
 }
 
 .line-title {
@@ -75,16 +76,6 @@
 .line-or {
   border-top: 3px solid #3A62C8;
   width: 7em;
-}
-
-.logins {
-  display: flex;
-  margin: 3vh 0;
-}
-
-.login-image {
-  height: 50px;
-  margin: 0 2.5em 0;
 }
 
 .signin-link {

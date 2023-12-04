@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/auth";
-import { InputField, Button } from '../../components';
-import logoDLZ from '../../assets/logoDLZ.svg';
+import { InputField, Button } from "../../components";
+import logoDLZ from "../../assets/logoDLZ.svg";
 import "./style.css";
 
 export default function Signin() {
+
+  const navigate = useNavigate();
 
   const initValue = { nome: "", email: "", senha: "", endereco: "", permissao: "USER" }
 
@@ -24,11 +27,11 @@ export default function Signin() {
     <main className="main">
       <div className="background"></div>
       <aside className="left-aside">
-        <img src={logoDLZ} alt="Logo" className="logo" />
+        <img src={logoDLZ} alt="Logo" className="logo-auth" />
       </aside>
 
       <div className="right-aside">
-        <h1 className="title">Registre-se</h1>
+        <h1 className="title-auth">Registre-se</h1>
         <div className="line-title"></div>
         <form action="" className="form">
           <InputField placeholder="Nome Completo" type="text" onChange={(i) => { storeAuthData({ nome: i.target.value }) }} />
@@ -36,7 +39,7 @@ export default function Signin() {
           <InputField placeholder="Senha" type="password" onChange={(i) => { storeAuthData({ senha: i.target.value }) }} />
           <InputField placeholder="Telefone" type="tel" onChange={(i) => { storeAuthData({ telefone: i.target.value }) }} />
           <InputField placeholder="Endereço" type="text" onChange={(i) => { storeAuthData({ endereco: i.target.value }) }} />
-          <p className="terms">Ao se cadastrar, você concorda com nossos  <a href="" className="terms-link">Termos</a>, <a href="" className="terms-link">Política de Privacidade</a> e <a href="" className="terms-link">Política de Cookies</a></p>
+          <p className="login-link">Já possuo conta  <a href="../" className="terms-link">Logar</a></p>
 
           <Button size="large" onClick={handleSignin} >Registrar</Button>
         </form>

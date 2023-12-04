@@ -1,0 +1,55 @@
+.logo {
+  max-height: 6em;
+  width: 6em;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-content {
+  display: flex;
+  height: 100%;
+}
+
+.home-aside {
+  width: 20%;
+  padding: 0 3vw;
+}
+
+.navigate-ref {
+  opacity: 65%;
+}
+
+.title {
+  color: #3A62C8;
+  font-size: xx-large;
+  padding: 0;
+}
+
+.order-by {}
+
+.order-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.order-btn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: medium;
+  margin: 0 0 0.5em 0;
+  cursor: pointer;
+}
+
+.order-btn:hover {
+  text-decoration: underline;
+}
+
+.home-main {
+  width: 80%;
+  padding: 0 1.5vw;
+}
