@@ -30,7 +30,7 @@
 
 ```sh
 .
-|-- documentacao/
+|-- documentacao/ (Conjunto de documentos que contêm as especificações do Software)
 |   |-- demais diretórios
 |
 |-- back-end/
@@ -55,7 +55,6 @@
         |-- styles/
     |-- public/
 |
-|-- documentacao/* (Conjunto de documentos que contêm as especificações do Software)
 ```
 
 ## Regras e Padrões de Uso do Git
