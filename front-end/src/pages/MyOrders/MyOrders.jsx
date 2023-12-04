@@ -1,11 +1,13 @@
 import React from 'react';
-import { Header, SideBar, CartTable } from '../../components';
+import { Header, SideBar, OrdersTable } from '../../components';
 import useSide from '../../hooks/side';
 import './style.css';
 
-const Cart = () => {
+export default function MyOrders() {
 
   const { toggleSideBar, closeSideBar, sideBarOpen } = useSide();
+
+
 
   return (
     <div>
@@ -13,12 +15,10 @@ const Cart = () => {
       <h1 className='title-cart'>Carrinho</h1>
 
       <div className='content'>
-        <CartTable />
+        <OrdersTable />
       </div>
 
       <SideBar isOpen={sideBarOpen} onClickOutSide={closeSideBar} />
     </div>
   );
 };
-
-export default Cart;

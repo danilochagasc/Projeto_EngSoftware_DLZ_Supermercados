@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 3px solid #3A62C8;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 1px solid #3A62C8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
 }
 
