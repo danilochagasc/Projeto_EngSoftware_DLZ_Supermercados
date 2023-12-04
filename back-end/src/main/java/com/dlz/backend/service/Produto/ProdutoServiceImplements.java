@@ -4,13 +4,13 @@ import com.dlz.backend.dto.request.ProdutoRequestDTO;
 import com.dlz.backend.dto.response.ProdutoResponseDTO;
 import com.dlz.backend.model.Produto;
 import com.dlz.backend.repository.ProdutoRepository;
-import com.dlz.backend.util.ProdutoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -18,72 +18,132 @@ import java.util.UUID;
 public class ProdutoServiceImplements implements ProdutoService{
 
     final ProdutoRepository produtoRepository;
-    final ProdutoMapper produtoMapper;
 
     @Override
-    public ProdutoResponseDTO encontrarPorId(UUID id) {
+    public ProdutoResponseDTO encontrarPorId(UUID idProduto) {
 
-        //obtendo o produto(entidade) por id
-        Produto produto = retornarProduto(id);
+        //obtendo o produto(entidade) pelo id
+        Produto produto = retornarProduto(idProduto);
 
-        //retornando o produto(entidade) em formato de ProdutoResponseDTO
-        return produtoMapper.toProdutoDTO(produto);
+        //retornando o produto
+        return new ProdutoResponseDTO(produto);
     }
 
     @Override
     public List<ProdutoResponseDTO> listarTodos() {
-        //retornando lista de produtos em formato de ProdutoResponseDTO
-        return produtoMapper.toProdutoListDTO(produtoRepository.findAll());
+
+        //obtendo todos os produtos
+        List<Produto> produtos = produtoRepository.findAll();
+
+        //retornando todos os produtos
+        return produtos.stream().map(ProdutoResponseDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public List<ProdutoResponseDTO> listarPorDepartamento(String nomeDep) {
-        return produtoMapper.toProdutoListDTO(produtoRepository.procurarPorDepartamento(nomeDep));
+
+        //obtendo todos os produtos
+        List<Produto> produtos = produtoRepository.procurarPorDepartamento(nomeDep);
+
+        //retornando todos os produtos
+        return produtos.stream().map(ProdutoResponseDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public List<ProdutoResponseDTO> listarEmOrdemAlfabetica(String ordem) {
+
         if(ordem.equals("ASC")){
-            return produtoMapper.toProdutoListDTO(produtoRepository.procurarPorOrdemAlfabeticaAscendente());
+            //obtendo todos os produtos em ordem alfabética ascendente
+            List<Produto> produtos = produtoRepository.procurarPorOrdemAlfabeticaAscendente();
+
+            //retornando todos os produtos
+            return produtos.stream().map(ProdutoResponseDTO::new).collect(Collectors.toList());
         }else{
-            return produtoMapper.toProdutoListDTO(produtoRepository.procurarPorOrdemAlfabeticaDescendente());
+            //obtendo todos os produtos em ordem alfabética descendente
+            List<Produto> produtos = produtoRepository.procurarPorOrdemAlfabeticaDescendente();
+
+            //retornando todos os produtos
+            return produtos.stream().map(ProdutoResponseDTO::new).collect(Collectors.toList());
         }
     }
 
     @Override
     public ProdutoResponseDTO registrar(ProdutoRequestDTO produtoRequestDTO) {
 
-        //transformando produtoRequestDTO em produto(entidade)
-        Produto produto = produtoMapper.toProduto(produtoRequestDTO);
+        //criando um novo produto
+        Produto produto = new Produto(produtoRequestDTO);
 
-        //salvando produto(entidade)
-        return produtoMapper.toProdutoDTO(produtoRepository.save(produto));
+        //salvando o produto
+        produtoRepository.save(produto);
+
+        //retornando o produto salvo
+        return new ProdutoResponseDTO(produto);
     }
 
     @Override
-    public ProdutoResponseDTO atualizar(UUID id, ProdutoRequestDTO produtoRequestDTO) {
+    public ProdutoResponseDTO atualizar(UUID idProduto, ProdutoRequestDTO produtoRequestDTO) {
 
-        //recuperando produto por id
-        Produto produto = retornarProduto(id);
+        //obtendo o produto(entidade) pelo id
+        Produto produto = retornarProduto(idProduto);
 
-        //atualizando produto com base no produtoRequestDTO
-        produtoMapper.atualizarProduto(produto, produtoRequestDTO);
+        //setando os novos valores
+        produto.setNome(produtoRequestDTO.nome());
+        produto.setPreco_em_centavos(produtoRequestDTO.preco_em_centavos());
+        produto.setDepartamento(produtoRequestDTO.departamento());
 
-        //salvando produto atualizado
-        return produtoMapper.toProdutoDTO(produtoRepository.save(produto));
+        //salvando o produto
+        produtoRepository.save(produto);
+
+        //retornando o produto salvo
+        return new ProdutoResponseDTO(produto);
     }
 
     @Override
-    public String deletar(UUID id) {
+    public void reduzirQuantidade(UUID idProduto, int quantidade) {
 
-        //deletando produto por id
-        produtoRepository.deleteById(id);
-        return "Produto id: " + id + "deletado com sucesso";
+            //obtendo o produto(entidade) pelo id
+            Produto produto = retornarProduto(idProduto);
+
+            //verificando se a quantidade é menor que a quantidade no estoque
+            if(produto.getQuantidade() < quantidade){
+                throw new RuntimeException("Impossível Realizar Compra, quantidade insuficiente em estoque");
+            }
+
+            //setando a nova quantidade
+            produto.setQuantidade(produto.getQuantidade() - quantidade);
+
+            //salvando o produto
+            produtoRepository.save(produto);
     }
 
-    //funcoes auxiliares
     @Override
-    public Produto retornarProduto(UUID id){
-        return produtoRepository.findById(id).orElseThrow(()-> new RuntimeException("Produto não encontrado"));
+    public void aumentarQuantidade(UUID idProduto, int quantidade) {
+
+            //obtendo o produto(entidade) pelo id
+            Produto produto = retornarProduto(idProduto);
+
+            //setando a nova quantidade
+            produto.setQuantidade(produto.getQuantidade() + quantidade);
+
+            //salvando o produto
+            produtoRepository.save(produto);
+    }
+
+    @Override
+    public String deletar(UUID idProduto) {
+
+        //obtendo o produto(entidade) pelo id
+        Produto produto = retornarProduto(idProduto);
+
+        //deletando o produto
+        produtoRepository.delete(produto);
+
+        //retornando uma mensagem de sucesso
+        return "Produto deletado com sucesso";
+    }
+
+    @Override
+    public Produto retornarProduto(UUID idProduto) {
+        return produtoRepository.findById(idProduto).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 }

@@ -1,16 +1,16 @@
 package com.dlz.backend.service.Departamento;
 
-import com.dlz.backend.dto.response.DepartamentoResponseDTO;
 import com.dlz.backend.dto.request.DepartamentoRequestDTO;
+import com.dlz.backend.dto.response.DepartamentoResponseDTO;
 import com.dlz.backend.model.Departamento;
 import com.dlz.backend.repository.DepartamentoRepository;
-import com.dlz.backend.util.DepartamentoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -18,60 +18,69 @@ import java.util.UUID;
 public class DepartamentoServiceImplements implements DepartamentoService{
 
     final DepartamentoRepository departamentoRepository;
-    final DepartamentoMapper departamentoMapper;
-
-
     @Override
-    public DepartamentoResponseDTO encontrarPorId(UUID id) {
+    public DepartamentoResponseDTO encontrarPorId(UUID idDepartamento) {
 
-        //obtendo o departamento(entidade) por id
-        Departamento departamento = retornarDepartamento(id);
+        //obtendo o departamento(entidade) pelo id
+        Departamento departamento = retornarDepartamento(idDepartamento);
 
-        //retornando o departamento(entidade) em formato de DepartamentoResponseDTO
-        return departamentoMapper.toDepartamentoDTO(departamento);
+        //retornando o departamento
+        return new DepartamentoResponseDTO(departamento);
     }
 
     @Override
     public List<DepartamentoResponseDTO> listarTodos() {
 
-        //retornando lista de departamentos em formato de DepartamentoResponseDTO
-        return departamentoMapper.toDepartamentoListDTO(departamentoRepository.findAll());
+        //obtendo todos os departamentos
+        List<Departamento> departamentos = departamentoRepository.findAll();
+
+        //retornando todos os departamentos
+        return departamentos.stream().map(DepartamentoResponseDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public DepartamentoResponseDTO registrar(DepartamentoRequestDTO departamentoDTO) {
+    public DepartamentoResponseDTO registrar(DepartamentoRequestDTO departamentoRequestDTO) {
 
-        //transformando departamentoRequestDTO em departamento(entidade)
-        Departamento departamento = departamentoMapper.toDepartamento(departamentoDTO);
+        //criando um novo departamento
+        Departamento departamento = new Departamento(departamentoRequestDTO);
 
-        //salvando departamento(entidade)
-        return departamentoMapper.toDepartamentoDTO(departamentoRepository.save(departamento));
+        //salvando o departamento
+        departamentoRepository.save(departamento);
+
+        //retornando o departamento salvo
+        return new DepartamentoResponseDTO(departamento);
     }
 
     @Override
-    public DepartamentoResponseDTO atualizar(UUID id, DepartamentoRequestDTO departamentoRequestDTO) {
+    public DepartamentoResponseDTO atualizar(UUID idDepartamento, DepartamentoRequestDTO departamentoRequestDTO) {
 
-        //recuperando departamento(entidade) por id
-        Departamento departamento = retornarDepartamento(id);
+        //obtendo o departamento(entidade) pelo id
+        Departamento departamento = retornarDepartamento(idDepartamento);
 
-        //atualizando departamento(entidade) com base no departamentoRequestDTO
-        departamentoMapper.atualizarDepartamento(departamento, departamentoRequestDTO);
+        //setando os novos valores
+        departamento.setNome(departamentoRequestDTO.nome());
 
-        //salvando departamento(entidade) atualizado
-        return departamentoMapper.toDepartamentoDTO(departamentoRepository.save(departamento));
+        //salvando o departamento
+        departamentoRepository.save(departamento);
+
+        //retornando o departamento atualizado
+        return new DepartamentoResponseDTO(departamento);
     }
 
     @Override
-    public String deletar(UUID id) {
+    public String deletar(UUID idDepartamento) {
 
-        //deletando departamento por id
-        departamentoRepository.deleteById(id);
-        return "Departamento: " + id + " deletado com sucesso!";
+        //obtendo o departamento(entidade) pelo id
+        Departamento departamento = retornarDepartamento(idDepartamento);
+
+        //deletando o departamento
+        departamentoRepository.delete(departamento);
+
+        return "Departamento deletado com sucesso";
     }
 
-    //funcoes auxiliares
     @Override
-    public Departamento retornarDepartamento(UUID id){
-        return departamentoRepository.findById(id).orElseThrow(()-> new RuntimeException("Departamento não encontrado"));
+    public Departamento retornarDepartamento(UUID idDepartamento) {
+        return departamentoRepository.findById(idDepartamento).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
     }
 }

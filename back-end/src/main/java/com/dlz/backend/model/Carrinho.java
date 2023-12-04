@@ -1,12 +1,10 @@
 package com.dlz.backend.model;
 
-
+import com.dlz.backend.dto.request.CarrinhoRequestDTO;
 import com.dlz.backend.model.Cliente.Cliente;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,23 +20,26 @@ public class Carrinho {
     @Setter(AccessLevel.NONE)
     private UUID idCarrinho;
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy="carrinho")
+    @ManyToOne()
+    @JoinColumn(name = "idCliente", referencedColumnName = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy="carrinho")
-    private Compra compra;
+    @ManyToOne()
+    @JoinColumn(name = "idProduto", referencedColumnName = "idProduto", nullable = false)
+    private Produto produto;
 
-    @ManyToMany
-    @JoinTable(
-        name = "Carrinho_Produto",
-        joinColumns = @JoinColumn(name = "idCarrinho"),
-        inverseJoinColumns = @JoinColumn(name = "idProduto"))
-    private List<Produto> produtos;
+    @ManyToOne()
+    @JoinColumn(name = "idCupom", referencedColumnName = "idCupom", nullable = true)
+    private Cupom cupom;
+
+    @Column(nullable = false)
+    private int quantidade;
 
     @Builder
-    public Carrinho(Cliente cliente, Compra compra, List<Produto> produtos) {
+    public Carrinho(CarrinhoRequestDTO carrinhoRequestDTO, Cliente cliente) {
         this.cliente = cliente;
-        this.compra = compra;
-        this.produtos = produtos;
+        this.produto = carrinhoRequestDTO.produto();
+        this.cupom = null;
+        this.quantidade = carrinhoRequestDTO.quantidade();
     }
 }

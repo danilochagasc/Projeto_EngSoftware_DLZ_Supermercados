@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Login, Signin } from "../pages";
+import useAuth from "../hooks/auth";
+import AuthRoutes from "./auth.routes";
+import HomeRoutes from "./home.routes";
 
 const AppRoutes = () => {
+  const { signed } = useAuth();
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/cadastro" element={<Signin />}></Route>
-      </Routes>
-    </Router>
+    <>
+      {signed ? <HomeRoutes /> : <AuthRoutes />}
+    </>
   );
 }
 

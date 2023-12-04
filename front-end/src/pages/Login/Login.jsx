@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import useAuth from "../../hooks/auth";
 import { InputField, Button } from '../../components';
 import logoDLZ from '../../assets/logoDLZ.svg';
 import facebook from '../../assets/facebook.svg';
@@ -6,6 +7,22 @@ import google from '../../assets/google.png';
 import "./style.css";
 
 export default function Login() {
+
+  const initValue = { email: "", senha: "" }
+
+  const [data, setData] = useState(initValue);
+
+  const { login } = useAuth();
+
+  function handleLogin(event) {
+    event.preventDefault();
+    login(data);
+  }
+
+  function storeAuthData(i) {
+    setData({ ...data, ...i });
+  }
+
   return (
     <main className="main">
       <div className="background"></div>
@@ -17,12 +34,12 @@ export default function Login() {
         <h1 className="title">Login</h1>
         <div className="line-title"></div>
         <form action="" className="form">
-          <InputField placeholder="Email" type="email" />
-          <InputField placeholder="Senha" type="password" />
+          <InputField placeholder="Email" type="email" onChange={(i) => { storeAuthData({ email: i.target.value }) }} />
+          <InputField placeholder="Senha" type="password" onChange={(i) => { storeAuthData({ senha: i.target.value }) }} />
 
           <a href="#" className="forgot-password">Esqueceu sua senha?</a>
 
-          <Button size="large">Login</Button>
+          <Button size="large" onClick={handleLogin}>Login</Button>
         </form>
 
         <div className="or">

@@ -1,12 +1,16 @@
 package com.dlz.backend.model.Cliente;
 
+import com.dlz.backend.dto.request.ClienteRequestDTO;
 import com.dlz.backend.model.Carrinho;
+import com.dlz.backend.model.Cupom;
+import com.dlz.backend.model.Pedido;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -42,20 +46,39 @@ public class Cliente implements UserDetails{
     @Column(nullable = false)
     private ClientePermissao permissao;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCarrinho", referencedColumnName = "idCarrinho")
-    private Carrinho carrinho;
+    //Relacionamentos
+    @ManyToMany()
+    @JoinTable(name = "CupomUsado",
+            joinColumns = @JoinColumn(name = "idCliente"),
+            inverseJoinColumns = @JoinColumn(name = "idCupom"))
+    private List<Cupom> cuponsUsados;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Carrinho> carrinhos;
 
     @Builder
-    public Cliente(String nome, String email, String senha, String telefone, String endereco, ClientePermissao permissao, Carrinho carrinho) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.permissao = permissao;
-        this.carrinho = carrinho;
+    public Cliente(ClienteRequestDTO clienteRequestDTO, String senhaEncriptada) {
+        this.nome = clienteRequestDTO.nome();
+        this.email = clienteRequestDTO.email();
+        this.senha = senhaEncriptada;
+        this.telefone = clienteRequestDTO.telefone();
+        this.endereco = clienteRequestDTO.endereco();
+        this.permissao = clienteRequestDTO.permissao();
+        this.cuponsUsados = new ArrayList<>();
     }
+
+    //metodos para adicionar e remover cupons
+    public void adicionarCupom(Cupom cupom) {
+        this.cuponsUsados.add(cupom);
+        cupom.getClientesComCupom().add(this);
+    }
+
+    public void removerCupom(Cupom cupom) {
+        this.cuponsUsados.remove(cupom);
+        cupom.getClientesComCupom().remove(this);
+    }
+
+
 
     //metodos do UserDetails
     @Override
