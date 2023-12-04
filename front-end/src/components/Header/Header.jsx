@@ -44,7 +44,7 @@ const Header = ({ toggleSideBar }) => {
             <button className='button-list-item' onClick={toggleSideBar}>Ver todas as categorias</button>
           </li>
           <li className='list-item'>
-            <button className='button-list-item' href="">Fale Conosco</button>
+            <button className='button-list-item' onClick={() => handleNavigate('MyOrders')}>Meus Pedidos</button>
           </li>
           <li className='list-item'>
             <button className='button-list-item' onClick={handleLogout}>Sair</button>

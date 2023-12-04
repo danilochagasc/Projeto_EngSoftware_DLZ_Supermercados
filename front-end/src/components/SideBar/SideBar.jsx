@@ -19,7 +19,7 @@ export default function SideBar({ isOpen, onClickOutSide }) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutSide);
     };
-  }, []);
+  }, [handleClickOutSide]);
 
   return (
     isOpen && (

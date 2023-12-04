@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import useSide from '../../hooks/side';
+import api from '../../services/api';
 
 import { Header, CardGrid, SideBar } from '../../components';
 import './style.css';
@@ -8,21 +10,7 @@ export default function Home() {
 
   const { departamento } = useParams();
 
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-
-  function toggleSideBar() {
-    setSideBarOpen(!sideBarOpen);
-  }
-
-  function closeSideBar() {
-    if (sideBarOpen) {
-      setSideBarOpen(false);
-    }
-  }
-
-  function handleClickOutSide() {
-    closeSideBar();
-  }
+  const { toggleSideBar, closeSideBar, sideBarOpen } = useSide();
 
   return (
     <div >
@@ -43,7 +31,7 @@ export default function Home() {
           <CardGrid departamento={departamento} />
         </main>
       </div>
-      <SideBar isOpen={sideBarOpen} onClickOutSide={handleClickOutSide} />
+      <SideBar isOpen={sideBarOpen} onClickOutSide={closeSideBar} />
     </div>
   );
 }

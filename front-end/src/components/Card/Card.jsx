@@ -6,28 +6,38 @@ import './style.css';
 const Card = ({ id, nome, preco, imagem }) => {
 
   const [count, setCount] = useState(0);
-  const [lilCar, setLilCar] = useState({ produto: { idProduto: id }, quantidade: count });
-  const teste = { produto: { idProduto: '1c190c78-2665-4902-9cdf-810e5d2160ac' }, quantidade: 2 };
-
+  const [lilCar, setLilCar] = useState({ produto: { idProduto: id }, quantidade: 0 });
 
   function incrementCount() {
-    setCount(prevCount => prevCount + 1);
+    setCount(prevCount => {
+      const updatedCount = prevCount + 1;
+      setLilCar({ produto: { idProduto: id }, quantidade: updatedCount });
+      return updatedCount;
+    });
   }
 
   function decrementCount() {
     if (count > 0) {
-      setCount(prevCount => prevCount - 1);
+      setCount(prevCount => {
+        const updatedCount = prevCount - 1;
+        setLilCar({ produto: { idProduto: id }, quantidade: updatedCount });
+        return updatedCount;
+      });
     }
   }
 
   async function addToCar() {
-    //setLilCar({ produto: { idProduto: id }, quantidade: count });
+    console.log(lilCar);
     if (count > 0) {
-      console.log('Entrou no if');
-      const response = await axios.post('http://localhost:8080/carrinho/registrar', teste);
+      const response = await axios.post('http://localhost:8080/carrinho/registrar', lilCar, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       console.log(response);
     }
     console.log('Adicionado ao carrinho');
+    setCount(0);
   }
 
   return (

@@ -7,6 +7,9 @@ class UserData {
   authenticate(data) {
     return api.post('/cliente/login', data);
   }
+  listar() {
+    return api.get('/cliente');
+  }
 }
 
 export default new UserData();
