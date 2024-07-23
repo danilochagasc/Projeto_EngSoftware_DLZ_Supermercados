@@ -21,41 +21,14 @@
 <p> Confere os produtos selecionados e é processada a opção de pagamento para a conclusão do pedido.</p>
 
 ## Tecnologias
-- React (JavaScript) --versão 18.2.0 
-- Spring Boot (Java) --versão 3.1.5
+- Angular (JavaScript) --versão 17 
+- Spring Boot (Java) --versão 3.3.2
 - PostgreSQL (SQL) --versão 15.4
 
 ## Estrutura de Diretórios
 <a name="estrutura-diretorio"></a>
 
-```sh
-.
-|-- documentacao/ (Conjunto de documentos que contêm as especificações do Software)
-|   |-- demais diretórios
-|
-|-- back-end/
-    |-- scr/
-        |-- main/
-            |-- java/com/dlz/backend/
-                |-- controller/* (Pasta dos controllers da aplicação)
-                |-- dto/* (Pasta dos dto's - Data Transfer Object - da aplicação)
-                |-- model/
-                |-- repository/
-                |-- service/
-                |-- util/* (Pasta com classes auxiliares de cada model)
-                |-- BackEndApplication.java (Arquivo principal)
-             |-- resouces/
-                 |-- application.properties (Arquivo de configurações referentes ao banco de dados)
-|
-|-- front-end/
-    |-- src/
-        |-- assets/* (Imagens utilizadas na aplicação)
-        |-- components/* (Componentes utilizados para a aplicação)
-        |-- pages/* (Páginas da aplicação)
-        |-- styles/
-    |-- public/
-|
-```
+Falta atualizar
 
 ## Regras e Padrões de Uso do Git
 
