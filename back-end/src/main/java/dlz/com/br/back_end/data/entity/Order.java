@@ -1,15 +1,13 @@
 package dlz.com.br.back_end.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +22,11 @@ public class Order {
 
     @Column(name = "date_time")
     private LocalDate dateTime;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+    private User user;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> itemsInOrder;
 }

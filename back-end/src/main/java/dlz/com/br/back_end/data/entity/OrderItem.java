@@ -1,9 +1,6 @@
 package dlz.com.br.back_end.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,4 +22,12 @@ public class OrderItem {
 
     @Column(name = "sale_price")
     private double salePrice;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_order", referencedColumnName = "id_order")
+    private Order order;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_product", referencedColumnName = "id_product")
+    private Product product;
 }
