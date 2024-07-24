@@ -1,8 +1,8 @@
 -- Criação da tabela CartItem
-CREATE TABLE IF NOT EXISTS CartItem (
-    idCartItem SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS cart_item (
+    id_cart_item SERIAL PRIMARY KEY,
     amount INT,
-    idCoupon INT,
-    idUser INT NOT NULL,
-    idProduct INT NOT NULL
+    id_coupon INT,
+    id_user INT NOT NULL,
+    id_product INT NOT NULL
 );

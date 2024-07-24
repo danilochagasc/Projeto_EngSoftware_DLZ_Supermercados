@@ -1,6 +1,6 @@
 -- Criação da tabela UsedCoupon
-CREATE TABLE IF NOT EXISTS UsedCoupon (
-    idCoupon INT NOT NULL,
-    idUser INT NOT NULL,
-    PRIMARY KEY (idCoupon, idUser)
+CREATE TABLE IF NOT EXISTS used_coupon (
+    id_coupon INT NOT NULL,
+    id_user INT NOT NULL,
+    PRIMARY KEY (id_coupon, id_user)
 );
