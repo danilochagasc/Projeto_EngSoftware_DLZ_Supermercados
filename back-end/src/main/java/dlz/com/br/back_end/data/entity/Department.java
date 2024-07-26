@@ -16,6 +16,7 @@ public class Department {
     @Id
     @Column(name = "id_department")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDepartment;
 
     @Column(name = "name")

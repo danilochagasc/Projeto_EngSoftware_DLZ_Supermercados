@@ -15,6 +15,7 @@ public class OrderItem {
     @Id
     @Column(name = "id_order_item")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrderItem;
 
     @Column(name = "amount")

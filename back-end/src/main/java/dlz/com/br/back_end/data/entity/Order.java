@@ -18,6 +18,7 @@ public class Order {
     @Id
     @Column(name = "id_order")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
 
     @Column(name = "date_time")

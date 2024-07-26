@@ -12,12 +12,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class User {
 
     @Id
     @Column(name = "id_user")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
     @Column(name = "name")

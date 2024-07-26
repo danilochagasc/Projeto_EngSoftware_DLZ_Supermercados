@@ -1,9 +1,6 @@
 package dlz.com.br.back_end.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,6 +15,7 @@ public class Coupon {
     @Id
     @Column(name = "id_coupon")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCoupon;
 
     @Column(name = "coupon_code")

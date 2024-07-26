@@ -14,6 +14,7 @@ public class Product {
     @Id
     @Column(name = "id_product")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduct;
 
     @Column(name = "name")

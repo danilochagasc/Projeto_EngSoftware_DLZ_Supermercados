@@ -1,13 +1,12 @@
 package dlz.com.br.back_end.data.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "cart_item")
 public class CartItem {
@@ -15,10 +14,11 @@ public class CartItem {
     @Id
     @Column(name = "id_cart_item")
     @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCartItem;
 
     @Column(name = "amount")
-    private int amout;
+    private int amount;
 
     @ManyToOne()
     @JoinColumn(name = "id_product", referencedColumnName = "id_product")
