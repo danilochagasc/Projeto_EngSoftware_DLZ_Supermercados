@@ -1,6 +1,10 @@
 package dlz.com.br.back_end.controller;
 
+import dlz.com.br.back_end.data.dto.request.auth.AuthRequestDTO;
+import dlz.com.br.back_end.data.dto.request.user.UpdatePasswordRequestDTO;
+import dlz.com.br.back_end.data.dto.request.user.UpdateUserRequestDTO;
 import dlz.com.br.back_end.data.dto.request.user.UserRequestDTO;
+import dlz.com.br.back_end.data.dto.response.AuthResponseDTO;
 import dlz.com.br.back_end.data.dto.response.UserResponseDTO;
 import dlz.com.br.back_end.service.UserService;
 import dlz.com.br.back_end.util.MediaType;
@@ -45,16 +49,33 @@ public class UserController {
             tags = {"User"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserResponseDTO.class))
+                            content = @Content(schema = @Schema(implementation = AuthResponseDTO.class))
                     ),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<AuthResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userRequestDTO));
+    }
+
+    @Operation(summary = "Realiza o Login",
+            description = "Realiza o login de um usuário de acordo com os dados informados",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AuthResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody AuthRequestDTO authRequestDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.login(authRequestDTO));
     }
 
     @Operation(summary = "Atualiza um Usuário",
@@ -69,9 +90,26 @@ public class UserController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping(value = "/update/{idUser}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long idUser, @Valid @RequestBody UserRequestDTO userRequestDTO) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(idUser, userRequestDTO));
+    @PutMapping(value = "/update-user/{idUser}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long idUser, @Valid @RequestBody UpdateUserRequestDTO updateUserRequestDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(idUser, updateUserRequestDTO));
+    }
+
+    @Operation(summary = "Atualiza a Senha de um Usuário",
+            description = "Atualiza a senha de um usuário de acordo com os dados informados",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = UserResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    @PutMapping(value = "/update-password/{idUser}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<UserResponseDTO> updatePassword(@PathVariable Long idUser, @Valid @RequestBody UpdatePasswordRequestDTO updateUserRequestDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updatePassword(idUser, updateUserRequestDTO));
     }
 
     @Operation(summary = "Exclui um Usuário",
