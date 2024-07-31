@@ -1,0 +1,7 @@
+<div class="wave-group">
+  <input [type]="type" required="" class="input">
+  <span class="bar"></span>
+  <label class="label">
+      <span class="label-char" *ngFor="let char of placeholderChars; let i = index" [style.--index]="i">{{ char }}</span>
+  </label>
+</div>

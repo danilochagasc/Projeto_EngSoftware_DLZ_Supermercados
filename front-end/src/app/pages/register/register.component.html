@@ -1,0 +1,35 @@
+<main class="main-container">
+    <aside class="aside-container">
+        <img src="/assets/logoDLZ.svg" alt="Logo">
+        <h2>Registre-se e faça o seu pedido!</h2>
+    </aside>
+
+    <section class="section-container">
+        <h1 class="main-title">Registre-se</h1>
+
+        <div class="form-container">
+            <form action="">
+                <app-form-input-bar [type]="'text'" [placeholder]="'Email'"></app-form-input-bar>
+    
+                <app-form-input-bar [type]="'text'" [placeholder]="'Nome Completo'"></app-form-input-bar>
+    
+                <app-form-input-bar [type]="'text'" [placeholder]="'Endereço'"></app-form-input-bar>
+    
+                <app-form-input-bar [type]="'text'" [placeholder]="'Telefone'"></app-form-input-bar>
+    
+                <app-form-input-bar [type]="'password'" [placeholder]="'Senha'"></app-form-input-bar>
+                
+            </form>
+        </div>
+        
+
+        <p class="section-container-advice">
+            Ao se cadastrar, você concorda com nossos 
+            <a href="https://help.instagram.com/581066165581870/?locale=pt_BR">Termos</a>,
+            <a href="https://www.facebook.com/privacy/policy"> Política de Privacidade</a> e 
+            <a href="https://privacycenter.instagram.com/policies/cookies/"> Política de Cookies.</a>
+        </p>
+
+        <app-login-register-button btnText="Registrar"></app-login-register-button>
+    </section>
+</main>
