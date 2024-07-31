@@ -28,15 +28,42 @@
     color: #FFFFFF; 
 }
 
-.section-container {
+.section-container{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     flex: 1.3;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .section-container h1 {
+    font-size:2.5em;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    margin-bottom: -5.5rem;
+    border-bottom: #3A62C8 solid 0.2rem;
+}
+
+.form-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-container .login-register-button{
+    margin-top: 2em;
+    align-self: center;
+}
+
+.section-container-advice a {
+    color: #3A62C8;
+    font-weight: 700;
+    
+}
+
+/* .section-container h1 {
     font-size:2.5em;
     font-weight: 700;
     padding-bottom: 1.2rem;
@@ -50,8 +77,4 @@
     margin-bottom: 2.5rem;
 }
 
-.section-container-advice a {
-    color: #3A62C8;
-    font-weight: 700;
-    
-}
+ */

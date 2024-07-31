@@ -17,19 +17,23 @@
     
                 <app-form-input-bar [type]="'text'" [placeholder]="'Telefone'"></app-form-input-bar>
     
-                <app-form-input-bar [type]="'password'" [placeholder]="'Senha'"></app-form-input-bar>
+                <app-form-input-bar [type]="'password'" [placeholder]="'Senha'"></app-form-input-bar>  
+
                 
             </form>
+
+            <p class="section-container-advice">
+                Ao se cadastrar, você concorda com nossos 
+                <a href="https://help.instagram.com/581066165581870/?locale=pt_BR">Termos</a>,
+                <a href="https://www.facebook.com/privacy/policy"> Política de Privacidade</a> e 
+                <a href="https://privacycenter.instagram.com/policies/cookies/"> Política de Cookies.</a>
+            </p>
+    
+            <app-login-register-button class="login-register-button" btnText="Registrar"></app-login-register-button>
+            
         </div>
         
 
-        <p class="section-container-advice">
-            Ao se cadastrar, você concorda com nossos 
-            <a href="https://help.instagram.com/581066165581870/?locale=pt_BR">Termos</a>,
-            <a href="https://www.facebook.com/privacy/policy"> Política de Privacidade</a> e 
-            <a href="https://privacycenter.instagram.com/policies/cookies/"> Política de Cookies.</a>
-        </p>
-
-        <app-login-register-button btnText="Registrar"></app-login-register-button>
+        
     </section>
 </main>
